@@ -1,0 +1,39 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "*.js",
+        "*.jsx",
+        "*.ts",
+        "*.tsx"
+      ],
+      "options": {
+        "arrowParens": "avoid",
+        "bracketSpacing": false,
+        "jsxBracketSameLine": true,
+        "printWidth": 80,
+        "trailingComma": "es5"
+      }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "printWidth": 66,
+        "proseWrap": "preserve",
+        "trailingComma": "none"
+      }
+    },
+    {
+      "files": [
+        "*.scss",
+        "*.css"
+      ],
+      "options": {
+        "printWidth": 80
+      }
+    }
+  ]
+}
