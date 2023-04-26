@@ -1,13 +1,11 @@
 {
   "compilerOptions": {
-    // "composite": true,
-    "target": "ES5",
+    "target": "ES6",
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext",
     ],
-    "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,8 +13,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -24,11 +22,15 @@
     "downlevelIteration": true,
     "noImplicitAny": true,
     "jsx": "react-jsx",
-    "checkJs": false,
-    "types": [
-      "node"
-    ]
+    "importHelpers": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "@types"
+    ],
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
-  "exclude": ["node_modules/**/*", "build", "public", "scripts", ".vscode", "design"]
+  "include": [
+    "src",
+    "scripts",
+    "@types"
+  ]
 }
