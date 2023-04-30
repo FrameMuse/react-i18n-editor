@@ -1,37 +1,76 @@
 {
-  "main": "index.ts",
-  "private": true,
+  "name": "react-i18next-editor",
+  "version": "0.0.0",
+  "description": "Enables editor directly on the webpage.",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "styles"
+  ],
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rollup --config",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint": "eslint src --ext .ts,.tsx",
     "fix-all": "eslint src --fix"
   },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-i18next": "^12.2.2"
+  },
   "dependencies": {
-    "@types/react": "^18.0.9",
+    "@monaco-editor/react": "^4.5.0",
+    "i18next": "^22.4.15",
+    "react-use": "^17.4.0"
+  },
+  "devDependencies": {
+    "@ampproject/rollup-plugin-closure-compiler": "^0.27.0",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.4.0",
+    "@types/react": "^18.2.0",
     "@types/react-dom": "^18.0.3",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-scripts": "^5.0.1"
+    "@types/uuid": "^9.0.1",
+    "eslint": "^8.6.0",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "react-scripts": "^5.0.1",
+    "rollup": "^2.77.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "sass": "^1.53.0",
+    "tslib": "^2.4.0",
+    "typescript": "latest"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrameMuse/react-i18next-editor.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+  "keywords": [
+    "react",
+    "i18n",
+    "editor",
+    "plugin",
+    "language",
+    "component",
+    "ts",
+    "typescript"
+  ],
+  "author": "FrameMuse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FrameMuse/react-i18next-editor/issues"
+  },
+  "homepage": "https://github.com/FrameMuse/react-i18next-editor#readme",
+  "engines": {
+    "node": "^18"
+  },
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).ts?(x)"
     ]
   }
 }

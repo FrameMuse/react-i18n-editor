@@ -3,12 +3,15 @@
     "node": true,
     "commonjs": true,
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/jsx-runtime"
+    // "eslint-config-prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -22,17 +25,21 @@
   },
   "plugins": [
     "react",
-    "react-hooks",
+    // "react-hooks",
     "@typescript-eslint",
     "unused-imports",
     "simple-import-sort"
+    // "eslint-plugin-prettier"
   ],
   "rules": {
-    "default-case": "warn",
+    "default-case": "error",
     "no-multi-spaces": "error",
-    "simple-import-sort/imports": "error",
-    "semi": ["error", "never"],
-
+    "simple-import-sort/imports": "warn",
+    "unused-imports/no-unused-imports": "warn",
+    "semi": [
+      "error",
+      "never"
+    ],
     "indent": [
       "error",
       2,
@@ -47,12 +54,29 @@
         "allowTemplateLiterals": true
       }
     ],
+    "arrow-parens": [
+      "warn",
+      "as-needed"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
     // OFF
-    "react/react-in-jsx-scope": "off",
-    "react/no-unescaped-entities": "off",
-
+    // "prettier/prettier": [
+    //   "error",
+    //   "off"
+    // ],
+    "@typescript-eslint/end-of-line": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
-    "@typescript-eslint/ban-types": "off"
-  }
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/prefer-namespace-keyword": "off",
+    "@typescript-eslint/no-namespace": "off"
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "build",
+    "coverage"
+  ]
 }
