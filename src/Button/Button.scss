@@ -1,0 +1,145 @@
+@import "../base.scss";
+
+.button {
+	--button-main-color: #{$color-blue};
+	--button-outline-width: 0;
+
+	--button-text-color: white;
+	--button-text-size: 1.125rem;
+	--button-border-radius: 0.325em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 0.875em 1.25em;
+	background: var(--button-main-color);
+
+	box-shadow: inset 0 0 0 var(--button-outline-width) var(--button-main-color);
+	border-radius: var(--button-border-radius);
+
+	transition: 200ms ease color, 200ms ease background-color, 100ms ease opacity, 200ms ease box-shadow;
+
+	// Default
+
+	&:active {
+		opacity: 0.85;
+	}
+
+	&:hover {
+		--button-main-color: #{rgba($color-blue, 0.8)};
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.35;
+	}
+
+	// Rest
+
+	&--outline {
+		--button-outline-width: 2px;
+
+		background: unset;
+
+		&:hover {
+			--button-outline-width: 4px;
+		}
+	}
+
+	&--outline:not(&--white) {
+		&:hover {
+			--button-main-color:#{rgba(white, 0.85)};
+		}
+	}
+
+	/* Colors */
+
+	&--white {
+		--button-main-color: white;
+		--button-text-color: #{rgba(black, 0.75)};
+
+		box-shadow: 0 0 0 2px rgba(black, 0.1);
+
+		&:hover {
+			--button-main-color: #{$color-gray-light};
+		}
+	}
+
+	/* Features */
+
+	&--small {
+		padding: 0.625em 1.25em;
+
+		.button__text {
+			--button-text-size: 1rem;
+		}
+	}
+
+	&:not(&--pending) {
+		.button__loader {
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
+
+	&--icon-only {
+		--icon-size: 2.5rem;
+		--button-border-radius: 50%;
+		padding: 0.75em;
+	}
+
+	&:not(&--icon-only) {
+		.button__icon {
+			padding: unset;
+		}
+	}
+
+	&--squared {
+		--button-border-radius: 0.5em;
+	}
+
+	&>*:not(:first-child, .button__loader) {
+		margin-left: 0.75em;
+	}
+}
+
+a.button {
+	display: inline-flex;
+	text-decoration: none;
+}
+
+.button__text {
+	color: var(--button-text-color);
+	font-size: var(--button-text-size);
+	font-weight: 500;
+
+	white-space: nowrap;
+	line-height: 1;
+}
+
+
+.button__icon {
+	--icon-size: #{var(--button-text-size)};
+
+	display: grid;
+	color: var(--button-icon-color, var(--button-text-color));
+
+	.icon {
+		transition: 200ms ease transform;
+	}
+}
+
+.button__loader {
+	--loader-color: #{rgba(white, 0.5)};
+	--loader-part-color: #{rgba(white, 1)};
+
+	position: absolute;
+	inset: 0;
+
+	transition: 200ms ease opacity;
+
+	display: grid;
+	background: rgba(black, 0.5);
+	border-radius: inherit;
+}

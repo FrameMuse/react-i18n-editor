@@ -36,14 +36,3 @@ interface EditorCustomPluginOptions {
     resourcePath?: string
   }
 }
-
-interface SavingOptions {
-  type?: "backend" | "localhost"
-
-  localhost?: {
-    /**
-     * @default 8008
-     */
-    port?: number
-  }
-}

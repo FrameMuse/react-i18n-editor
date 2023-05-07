@@ -1,0 +1,56 @@
+/* Colors */
+
+$color-white: #FFFFFF;
+$color-dark: #1A1A1A;
+
+$color-gray: #CACACA;
+$color-gray-dark: #8B8B8B;
+$color-gray-light: #F0F2F8;
+
+$color-blue: #0054da;
+$color-red: #D62D30;
+
+$color-primary-text: #9cdcfe;
+
+/* Font Sizes */
+$font-size-h1: 1.5rem;
+$font-size-h2: 1.25rem;
+$font-size-h3: 1rem;
+$font-size-h4: 0.875rem;
+$font-size-h5: 0.75rem;
+$font-size-text: 1rem;
+
+/* Input */
+
+@mixin InputLabel {
+	font-size: $font-size-h3;
+	font-weight: 500;
+
+	span.weak {
+		color: $color-gray;
+	}
+}
+
+// Input, Select, Textarea appearance.
+@mixin InputAppearance($padding: 0.25em 0.5em) {
+	padding: $padding;
+	background: rgba(white, 0.25);
+	border: 2px solid transparent;
+	border-radius: 0.25em;
+
+	color: white;
+	transition: 200ms ease background-color, 200ms ease border-color;
+
+	&:focus,
+	&:focus-within,
+	&--focused {
+		background: rgba(white, 0.1);
+		border-color: rgba($color-primary-text, 0.75);
+	}
+
+	&:disabled,
+	&--disabled {
+		background: $color-gray;
+		cursor: not-allowed;
+	}
+}

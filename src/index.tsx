@@ -16,30 +16,18 @@ copies or substantial portions of the Software.
 
 */
 
-@import "~app/assets/scss/bundle.scss";
+import App from "App"
+import { createElement } from "react"
+import { createRoot } from "react-dom/client"
 
-// .react-json-editor-wrapper {}
-
-.react-json-editor {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  width: 25vw;
-  height: 100vh;
-
-  z-index: 999;
+const rootElement = document.getElementById("root")
+if (rootElement == null) {
+  throw new Error()
 }
 
-.react-json-editor__editor {
-  height: 100%;
-}
+const root = createRoot(rootElement)
+root.render(createElement(App))
 
-.react-json-editor__toolbar {
-  display: flex;
-  align-items: center;
-}
+
+
+// export { default as I18nextEditorContainer } from "./I18nextEditorContainer"

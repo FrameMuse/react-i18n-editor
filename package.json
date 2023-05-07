@@ -18,11 +18,12 @@
   },
   "peerDependencies": {
     "react": "^18.2.0",
+    "i18next": "^22.4.15",
     "react-i18next": "^12.2.2"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.0",
-    "i18next": "^22.4.15",
+    "lodash": "^4.17.21",
     "react-use": "^17.4.0"
   },
   "devDependencies": {
@@ -31,8 +32,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.4.0",
+    "@types/lodash": "^4.14.194",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.0.3",
+    "@types/react-resizable": "^3.0.4",
     "@types/uuid": "^9.0.1",
     "eslint": "^8.6.0",
     "eslint-plugin-react": "7.32.2",
@@ -41,7 +44,7 @@
     "react-scripts": "^5.0.1",
     "rollup": "^2.77.0",
     "rollup-plugin-dts": "^4.2.2",
-    "sass": "^1.53.0",
+    "sass": "^1.62.1",
     "tslib": "^2.4.0",
     "typescript": "latest"
   },
@@ -64,13 +67,24 @@
   "bugs": {
     "url": "https://github.com/FrameMuse/react-i18next-editor/issues"
   },
-  "homepage": "https://github.com/FrameMuse/react-i18next-editor#readme",
   "engines": {
     "node": "^18"
   },
   "jest": {
     "testMatch": [
       "**/?(*.)+(spec|test).ts?(x)"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }

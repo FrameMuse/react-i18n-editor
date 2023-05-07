@@ -1,0 +1,262 @@
+@import "./base.scss";
+
+.text-selection {
+	--transform-x: -0.925em;
+	--transform-y: 0.35em;
+
+	font-family: Consolas, "Courier New", Courier, monospace;
+
+	position: fixed;
+	top: calc(1px * var(--top));
+	left: calc(1px * var(--left));
+
+	display: grid;
+
+	// min-width: 1em;
+	width: calc(1ch * var(--width));
+	// max-width: 7.5em;
+	background: #565656;
+	border-radius: 0.25em;
+
+	transform: translate(var(--transform-x), var(--transform-y));
+	transition: 200ms ease opacity, 200ms ease transform;
+
+	&::before {
+		$size: 0.5em;
+
+		content: "";
+
+		position: absolute;
+		top: -$size + 0.125em;
+		left: $size;
+
+		width: 0px;
+		height: 0px;
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-bottom: $size solid #565656;
+	}
+
+	&--hidden {
+		--transform-y: 75%;
+
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+.text-selection__value {
+	padding: 0.5em 1em;
+
+	color: $color-primary-text;
+}
+.text-selection__values {
+	display: grid;
+	gap: 0.5em;
+}
+.text-selection__options {
+	display: grid;
+
+	// padding: 0.25em;
+	// background: rgba(black, 0.25);
+	border-radius: 0.25em;
+	overflow: hidden;
+}
+.text-selection__option {
+	padding: 0.5em 0.75em;
+	background: rgba(black, 0.35);
+	border: unset;
+
+	// text-align: left;
+
+	color: white;
+	cursor: pointer;
+
+	&:hover {
+		background: rgba(black, 0.5);
+	}
+	&:active {
+		opacity: 0.7;
+	}
+}
+
+
+.field {
+	position: fixed;
+	inset: 0;
+
+	// background: rgba(rgb(12, 21, 37), 0.75);
+
+	user-select: none;
+	pointer-events: none;
+}
+
+.field__overlay {
+	display: flex;
+
+	position: absolute;
+	inset: 0;
+}
+
+.field__element {
+	position: absolute;
+
+	top: calc(1px * var(--top));
+	left: calc(1px * var(--left));
+
+	width: calc(1px * var(--width));
+	height: calc(1px * var(--height));
+
+
+	$color: rgb(23, 119, 255);
+	$paddingBlock: 0;
+	$paddingInline: 0;
+
+	padding: $paddingBlock $paddingInline;
+	background: rgba($color, 0.1);
+	border: 1px solid rgba($color, 0.75);
+	border-radius: 0.25em;
+
+	transform: translate(-$paddingBlock, -$paddingInline);
+	transition: 200ms ease background-color, 200ms ease transform;
+
+	box-sizing: border-box;
+
+	&--active {
+		background: rgba($color, 0.5);
+	}
+}
+
+.field__selection {
+	position: absolute;
+
+	top: calc(1px * var(--top));
+	left: calc(1px * var(--left));
+
+	width: calc(1px * var(--width));
+	height: calc(1px * var(--height));
+
+	background: rgba($color-primary-text, 0.25);
+	background-image: radial-gradient(circle, rgba($color-primary-text, 0.75) 1px, transparent 0);
+  background-size: 25px 25px;
+
+	border: 1px solid rgba($color-primary-text, 0.75);
+	border-radius: 0.25em;
+
+	transition: 500ms ease opacity;
+
+	&--inverse-x {
+		left: unset;
+		right: calc(100% - (1px * var(--left)));
+
+		width: calc(-1px * var(--width));
+	}
+	&--inverse-y {
+		top: unset;
+		bottom: calc(100% - (1px * var(--top)));
+
+		height: calc(-1px * var(--height));
+	}
+
+	&--hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+// body {
+// 	background: rgba(14, 13, 255, 0.5);
+// }
+
+
+.text-selection__groups {
+	display: grid;
+	gap: 1em;
+
+	padding: 0.25em;
+	background: $color-dark;
+
+	max-height: 75vh;
+	overflow: auto;
+}
+
+.text-selection-group {
+	display: grid;
+	gap: 0.5em;
+
+	max-width: 25em
+}
+
+.text-selection-group__title {
+	padding: 0.5em 0.75em;
+
+	color: #ce9178;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.text-selection-group__matches {
+	display: grid;
+
+	// padding: 0.25em;
+}
+
+.text-selection-match {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+
+	padding: 0.5em 0.75em;
+	background: rgba(black, 0.35);
+}
+.text-selection-match__number {
+	color: white;
+}
+.text-selection-match__keys {
+	display: flex;
+	flex-wrap: wrap;
+
+	align-items: center;
+	gap: 0.25em;
+}
+.text-selection-match__key {
+	font-size: 12px;
+
+	padding: 0.125rem 0.25rem;
+	background: white;
+	border-radius: 0.25em;
+
+	color: $color-dark;
+}
+.text-selection-match__buttons {
+	display: flex;
+	gap: 0.25em;
+
+	margin-left: auto;
+}
+.text-selection-match__button {
+	color: $color-primary-text;
+
+	font: inherit;
+
+	padding: 0.5em;
+	background: rgba(255, 255, 255, 0.25);
+	border: unset;
+	border-bottom: 2px solid transparent;
+	border-radius: 0.25em;
+	cursor: pointer;
+
+	line-height: 1;
+
+	transition: 200ms ease border-color;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	&:active {
+		background: rgba(255, 255, 255, 0.15);
+		color: rgb(119, 210, 246);
+	}
+}
