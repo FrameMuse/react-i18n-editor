@@ -214,7 +214,24 @@ function I18nextEditorWindow() {
     setExpandedStartX(event.x)
   }, expanderElementRef.current as null)
   useEvent("mouseup", (event: MouseEvent) => {
+    if (!resizing) return
+
     event.preventDefault()
+
+
+    if (expandedEndX === 0 && width === 0) {
+      setWidth(500)
+      setResizing(false)
+      setExpandedEndX(500)
+      return
+    }
+
+    if (expandedEndX === width) {
+      setWidth(0)
+      setResizing(false)
+      setExpandedEndX(0)
+      return
+    }
 
     setResizing(false)
     setExpandedEndX(width)
@@ -224,8 +241,15 @@ function I18nextEditorWindow() {
 
     event.preventDefault()
 
-    setWidth(expandedEndX + expandedStartX - event.x)
+    const newWidth = expandedEndX + expandedStartX - event.x
+    if (newWidth < 10) {
+      setWidth(0)
+      return
+    }
+    setWidth(newWidth)
   })
+
+
 
   return (
     <>
