@@ -1,0 +1,69 @@
+@import "~assets/scss/base.scss";
+
+.selection-box {
+	position: fixed;
+	inset: 0;
+
+	user-select: none;
+	pointer-events: none;
+}
+
+.selection-box__overlay {
+	display: flex;
+
+	position: absolute;
+	inset: 0;
+}
+
+.selection-box__element {
+	position: absolute;
+
+	top: calc(1px * var(--top));
+	left: calc(1px * var(--left));
+
+	width: calc(1px * var(--width));
+	height: calc(1px * var(--height));
+
+
+	$color: rgb(23, 119, 255);
+	$paddingBlock: 0;
+	$paddingInline: 0;
+
+	padding: $paddingBlock $paddingInline;
+	background: rgba($color, 0.1);
+	border: 1px solid rgba($color, 0.75);
+	border-radius: 0.25em;
+
+	transform: translate(-$paddingBlock, -$paddingInline);
+	transition: 200ms ease background-color, 200ms ease transform;
+
+	box-sizing: border-box;
+
+	&--active {
+		background: rgba($color, 0.5);
+	}
+}
+
+.selection-box__selection {
+	position: absolute;
+
+	top: calc(1px * var(--top));
+	left: calc(1px * var(--left));
+
+	width: calc(1px * var(--width));
+	height: calc(1px * var(--height));
+
+	background: rgba($color-primary-text, 0.25);
+	background-image: radial-gradient(circle, rgba($color-primary-text, 0.75) 1px, transparent 0);
+  background-size: 25px 25px;
+
+	border: 1px solid rgba($color-primary-text, 0.75);
+	border-radius: 0.25em;
+
+	transition: 500ms ease opacity;
+
+	&--hidden {
+		opacity: 0;
+		pointer-events: none;
+	}
+}

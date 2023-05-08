@@ -1,0 +1,144 @@
+@import "~assets/scss/base.scss";
+
+.selected-entries {
+	--transform-x: -0.925em;
+	--transform-y: 0.35em;
+
+	font-family: Consolas, "Courier New", Courier, monospace;
+
+	position: fixed;
+	top: calc(1px * var(--top));
+	left: calc(1px * var(--left));
+
+	display: grid;
+
+	// min-width: 1em;
+	width: calc(1ch * var(--width));
+	// max-width: 7.5em;
+	background: #565656;
+	border-radius: 0.25em;
+
+	transform: translate(var(--transform-x), var(--transform-y));
+	transition: 200ms ease opacity, 200ms ease transform;
+
+	&::before {
+		$size: 0.5em;
+
+		content: "";
+
+		position: absolute;
+		top: -$size + 0.125em;
+		left: $size;
+
+		width: 0px;
+		height: 0px;
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-bottom: $size solid #565656;
+	}
+
+	&--hidden {
+		--transform-y: 75%;
+
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+.selected-entries__title {
+	padding: 0.5em 1em;
+
+	color: $color-primary-text;
+}
+
+.selected-entries__groups {
+	display: grid;
+	gap: 1em;
+
+	padding: 0.25em;
+	background: $color-dark;
+
+	max-height: 75vh;
+	overflow: auto;
+}
+
+.selected-entries-group {
+	display: grid;
+	gap: 0.5em;
+
+	max-width: 25em
+}
+
+.selected-entries-group__title {
+	padding: 0.5em 0.75em;
+
+	color: #ce9178;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.selected-entries-group__matches {
+	display: grid;
+
+	// padding: 0.25em;
+}
+
+.selected-entries-match {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+
+	padding: 0.5em 0.75em;
+	background: rgba(black, 0.35);
+}
+.selected-entries-match__number {
+	color: white;
+}
+.selected-entries-match__keys {
+	display: flex;
+	flex-wrap: wrap;
+
+	align-items: center;
+	gap: 0.25em;
+}
+.selected-entries-match__key {
+	font-size: 12px;
+
+	padding: 0.125rem 0.25rem;
+	background: white;
+	border-radius: 0.25em;
+
+	color: $color-dark;
+}
+.selected-entries-match__buttons {
+	display: flex;
+	gap: 0.25em;
+
+	margin-left: auto;
+}
+.selected-entries-match__button {
+	color: $color-primary-text;
+
+	font: inherit;
+
+	padding: 0.5em;
+	background: rgba(255, 255, 255, 0.25);
+	border: unset;
+	border-bottom: 2px solid transparent;
+	border-radius: 0.25em;
+	cursor: pointer;
+
+	line-height: 1;
+
+	transition: 200ms ease border-color;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	&:active {
+		background: rgba(255, 255, 255, 0.15);
+		color: rgb(119, 210, 246);
+	}
+}

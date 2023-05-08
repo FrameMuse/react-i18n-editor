@@ -26,7 +26,6 @@ import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useEvent } from "react-use"
 import { useTabRouter } from "TabRouter/tabRouterContext"
-import TextSelection from "TextSelection"
 
 import ComparisonTable, { ComparisonTableRow } from "./ComparisonTable"
 import Enum from "./enum"
@@ -37,6 +36,7 @@ import { optionsFromKeys } from "./Select/Select.helpers"
 import TabLink from "./TabRouter/TabLink"
 import TabRoute from "./TabRouter/TabRoute"
 import TabRouter from "./TabRouter/TabRouter"
+import TextSelection from "./TextSelection/TextSelection"
 import { classWithModifiers, isRecord } from "./utils"
 
 const DEFAULT_RANGED_ENTRIES = new RangedEntries({}, editor.createModel(""))
@@ -253,7 +253,7 @@ function I18nextEditorWindow() {
 
   return (
     <>
-      <TextSelection rangedEntries={rangedEntries} onResourceEditorLook={onResourceEditorLook} onCompareRequest={onCompareRequest} />
+      <TextSelection rangedEntries={rangedEntries} onResourceEditorReveal={onResourceEditorLook} onCompareRequest={onCompareRequest} />
       <div className={classWithModifiers("i18n-editor", resizing && "expanding")} style={{ "--width": width }}>
         <div className="i18n-editor__tabs">
           {Enum.keys(Tabs).map(tab => (
