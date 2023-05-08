@@ -10,6 +10,8 @@ import { SelectionEntry, TextSelectionProps } from "../../TextSelection"
 interface SelectedEntriesWindowProps extends TextSelectionProps {
   selectionBox: Box
   selectedEntries: SelectionEntry[]
+
+  selecting: boolean
 }
 
 function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
@@ -33,7 +35,7 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
   }
 
   return (
-    <div className={classWithModifiers("selected-entries", props.selectedEntries.length === 0 && "hidden")} style={textSelectionStyle}>
+    <div className={classWithModifiers("selected-entries", props.selectedEntries.length === 0 && "hidden", props.selecting && "selecting")} style={textSelectionStyle}>
       <div className="selected-entries__title">
         {props.selectedEntries.length} entries selected
       </div>
@@ -47,7 +49,7 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
                   <div className="selected-entries-match__number">{index + 1}.</div>
                   <div className="selected-entries-match__keys">
                     {entry.keys.map((key, index) => (
-                      <div className="selected-entries-match__key" key={index}>{key}</div>
+                      <div className="selected-entries-match__key" key={index}>{`"${key}"`}</div>
                     ))}
                   </div>
                   <div className="selected-entries-match__buttons">

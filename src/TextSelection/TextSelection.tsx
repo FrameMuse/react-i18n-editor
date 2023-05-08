@@ -1,8 +1,9 @@
 import Box from "geometry/Box"
 import Point from "geometry/Point"
+import _ from "lodash"
 import { IRange } from "monaco-editor/esm/vs/editor/editor.api"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { useEvent, useKey } from "react-use"
+import { useEvent } from "react-use"
 
 import RangedEntries from "../RangedEntries"
 import SelectedEntriesWindow from "./components/SelectedEntriesWindow/SelectedEntriesWindow"
@@ -26,13 +27,6 @@ export interface TextSelectionProps {
 }
 
 function TextSelection(props: TextSelectionProps) {
-  // Getting "Control" key state //
-
-  const [controlKey, setControlKey] = useState(false)
-
-  useKey("Control", () => setControlKey(true), { event: "keydown" })
-  useKey("Control", () => setControlKey(false), { event: "keyup" })
-
   // Calculating selection box //
 
   const [pointerDown, setPointerDown] = useState(false)
@@ -42,7 +36,7 @@ function TextSelection(props: TextSelectionProps) {
   const selectionEndRef = useRef<Point>(Point.NULL)
 
   useEvent("pointerdown", (event: PointerEvent) => {
-    if (!controlKey) return
+    if (!event.ctrlKey) return
     if (excludedContains(event.target)) return
 
     event.preventDefault()
@@ -51,15 +45,20 @@ function TextSelection(props: TextSelectionProps) {
     setPointerDown(true)
   })
   useEvent("pointerup", (event: PointerEvent) => {
-    if (!pointerDown) return
+    // Allow "click" ("up" event immediately after "down" event).
+    if (event.ctrlKey) {
+      event.preventDefault()
 
-    event.preventDefault()
+      selectionEndRef.current = Point.fromPointLike(event)
+      setSelectionBox(Box.fromPoints(selectionStartRef.current, selectionEndRef.current))
+    }
 
     setPointerDown(false)
   })
   useEvent("pointermove", (event: PointerEvent) => {
-    if (!controlKey) return
-    if (!pointerDown) return
+    if (!event.ctrlKey) return
+    if (event.pressure < 0.5) return
+    if (excludedContains(event.target)) return
 
     event.preventDefault()
 
@@ -71,15 +70,6 @@ function TextSelection(props: TextSelectionProps) {
 
   const [textNodes, setTextNodes] = useState<Set<Node>>(new Set)
 
-  function clearObsoleteTextNodes() {
-    for (const node of textNodes) {
-      if (document.contains(node)) continue
-
-      textNodes.delete(node)
-      setTextNodes(textNodes)
-    }
-  }
-
   useEffect(() => {
     // TODO: Probably move `rootElement` to context or props.
     const rootElement = document.getElementById("root")
@@ -87,26 +77,45 @@ function TextSelection(props: TextSelectionProps) {
       throw new Error("No #root element found.")
     }
     // Initial update.
-    onNodeUpdate(rootElement)
-
-    function onNodeUpdate(node: Node) {
-      const textNodes = getTextNodes(node)
-
-      setTextNodes(currentTextNodes => new Set([...currentTextNodes, ...textNodes]))
-    }
+    setTextNodes(new Set(getTextNodes(rootElement)))
 
 
     const mutationObserver = new MutationObserver(mutations => {
+      const addedTextNodes: Node[] = []
+      const removedTextNodes: Node[] = []
+      let textNodesModified = false
+
       for (const mutation of mutations) {
-        // Broaden update area.
-        if (mutation.target.parentElement) {
-          onNodeUpdate(mutation.target.parentElement)
-        } else {
-          onNodeUpdate(mutation.target)
+        if (excludedContains(mutation.target)) continue
+
+        if (mutation.type === "childList") {
+          addedTextNodes.push(...[...mutation.addedNodes].flatMap(getTextNodes))
+          removedTextNodes.push(...[...mutation.removedNodes].flatMap(getTextNodes))
+
+          continue
         }
+
+        textNodesModified = true
       }
 
-      clearObsoleteTextNodes()
+      setTextNodes(oldTextNodes => {
+        const newTextNodes = new Set(oldTextNodes)
+
+        removedTextNodes.forEach(node => newTextNodes.delete(node))
+        addedTextNodes.forEach(node => newTextNodes.add(node))
+
+        if (textNodesModified) {
+          return newTextNodes
+        }
+
+
+        if (_.difference([...newTextNodes], [...oldTextNodes]).length === 0)
+          if (_.difference([...oldTextNodes], [...newTextNodes]).length === 0) {
+            return oldTextNodes
+          }
+
+        return newTextNodes
+      })
     })
 
     mutationObserver.observe(rootElement, {
@@ -119,6 +128,8 @@ function TextSelection(props: TextSelectionProps) {
       childList: true,
       subtree: true
     })
+
+    console.log(1)
 
     return () => {
       mutationObserver.disconnect()
@@ -148,8 +159,8 @@ function TextSelection(props: TextSelectionProps) {
 
   return (
     <>
-      <SelectionBox {...props} {...{ selectionBox, selectedEntries, selectionEntries, pointerDown }} />
-      <SelectedEntriesWindow {...props} {...{ selectionBox, selectedEntries }} />
+      <SelectionBox {...props} {...{ selectionBox, selectedEntries, selectionEntries }} selecting={pointerDown} />
+      <SelectedEntriesWindow {...props} {...{ selectionBox, selectedEntries }} selecting={pointerDown} />
     </>
   )
 }

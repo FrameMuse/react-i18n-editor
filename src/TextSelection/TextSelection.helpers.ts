@@ -1,5 +1,11 @@
-export function getTextNodes(root: Node): Node[] {
-  const nodeIterator = document.createNodeIterator(root, NodeFilter.SHOW_TEXT)
+export function getTextNodes(node: Node): Node[] {
+  if (excludedContains(node)) return []
+
+  if (node.nodeType === node.TEXT_NODE) {
+    return [node]
+  }
+
+  const nodeIterator = document.createNodeIterator(node, NodeFilter.SHOW_TEXT)
 
   const textNodes: Node[] = []
   let textNode: Node | null = null
@@ -38,13 +44,15 @@ export function elementsContain(elements: NodeListOf<Element> | Element[], node:
   return false
 }
 
+
+
 /**
  * Checks if any of the excluded elements contain a target.
- */
+*/
 export function excludedContains(target: unknown) {
-  if (target instanceof Node) {
-    const excludedElements = document.querySelectorAll(".i18n-editor, .selected-entries, .field")
+  const excludedElements = document.querySelectorAll(".i18n-editor, .selected-entries, .selection-box")
 
+  if (target instanceof Node) {
     if (elementsContain(excludedElements, target)) {
       return true
     }

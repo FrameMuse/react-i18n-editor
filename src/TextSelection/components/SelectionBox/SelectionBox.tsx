@@ -11,7 +11,7 @@ interface SelectionBoxProps extends TextSelectionProps {
   selectedEntries: SelectionEntry[]
   selectionEntries: SelectionEntry[]
 
-  pointerDown: boolean
+  selecting: boolean
 }
 
 function SelectionBox(props: SelectionBoxProps) {
@@ -19,12 +19,12 @@ function SelectionBox(props: SelectionBoxProps) {
     const modifiers: string[] = []
 
     // Hide if nothing was selected.
-    if (!props.pointerDown && props.selectedEntries.length === 0) {
+    if (!props.selecting && props.selectedEntries.length === 0) {
       modifiers.push("hidden")
     }
 
     return modifiers
-  }, [props.pointerDown, props.selectedEntries])
+  }, [props.selecting, props.selectedEntries])
 
   return (
     <div className="selection-box">
