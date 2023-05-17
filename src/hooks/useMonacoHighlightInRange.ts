@@ -1,26 +1,23 @@
-import { useMonaco } from "@monaco-editor/react"
 import { editor, IRange } from "monaco-editor/esm/vs/editor/editor.api"
-import { useRef } from "react"
+import { MutableRefObject, useRef } from "react"
 
-function useMonacoHighlightInRange() {
-  const monaco = useMonaco()
-
+function useMonacoHighlightInRange(editorInstanceRef: MutableRefObject<editor.ICodeEditor | null>) {
   const highlightDecorationsCollectionRef = useRef<editor.IEditorDecorationsCollection | null>(null)
 
   function highlightInRange(range: IRange) {
-    if (monaco == null) return
+    if (editorInstanceRef.current == null) return
+    const editorInstance = editorInstanceRef.current
 
-    const EEditor = monaco.editor.getEditors()[0]
     // Reveal after editor rendered.
     setTimeout(() => {
-      EEditor.revealRangeInCenter(range, editor.ScrollType.Smooth)
+      editorInstance.revealRangeInCenter(range, editor.ScrollType.Smooth)
     })
 
     if (highlightDecorationsCollectionRef.current != null) {
       highlightDecorationsCollectionRef.current.clear()
     }
 
-    const decorationsCollection = EEditor.createDecorationsCollection([{
+    const decorationsCollection = editorInstance.createDecorationsCollection([{
       options: {
         isWholeLine: true,
         className: "highlight"
