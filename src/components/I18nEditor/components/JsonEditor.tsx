@@ -1,6 +1,5 @@
-import MonacoEditor, { useMonaco } from "@monaco-editor/react"
-import { IRange } from "monaco-editor/esm/vs/editor/editor.api"
-import { useEffect } from "react"
+import MonacoEditor, { Monaco, OnMount } from "@monaco-editor/react"
+import { editor, IRange } from "monaco-editor/esm/vs/editor/editor.api"
 
 interface JsonEditorProps {
   width?: string
@@ -11,6 +10,8 @@ interface JsonEditorProps {
    */
   onSymbolClick?(range: IRange): void
   onChange?(content: string): void
+
+  onMount?: OnMount
 }
 
 function JsonEditor(props: JsonEditorProps) {
@@ -20,12 +21,10 @@ function JsonEditor(props: JsonEditorProps) {
     props.onChange?.(value)
   }
 
-  const monaco = useMonaco()
-  // Register Link Provider (Link request for Symbol click).
-  useEffect(() => {
-    if (monaco == null) return
-
-    const registeredLinkProvider = monaco.languages.registerLinkProvider("json", {
+  function onMount(editor: editor.IStandaloneCodeEditor, monaco: Monaco) {
+    props.onMount?.(editor, monaco)
+    // Register Link Provider (Link request for Symbol click).
+    monaco.languages.registerLinkProvider("json", {
       provideLinks(model) {
         return {
           links: model.findMatches(`".*?"(?=:)`, false, true, false, null, false, 5000).map(match => {
@@ -40,23 +39,20 @@ function JsonEditor(props: JsonEditorProps) {
         props.onSymbolClick?.(link.range)
 
         return null
-      },
+      }
     })
-    return () => {
-      registeredLinkProvider.dispose()
-    }
-  }, [monaco])
+  }
 
   return (
     <MonacoEditor
       height="100%"
       width={props.width}
 
+      path="json-editor"
       defaultPath="json-editor"
 
       language="json"
       defaultLanguage="json"
-
 
       value={props.content}
       defaultValue={props.content}
@@ -64,6 +60,7 @@ function JsonEditor(props: JsonEditorProps) {
       theme="vs-dark"
       options={{ smoothScrolling: true }}
 
+      onMount={onMount}
       onChange={onChange} />
   )
 }
