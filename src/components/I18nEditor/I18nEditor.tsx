@@ -46,7 +46,7 @@ export const I18N_EDITOR_REFRESH_EVENT = "i18n-editor-refresh"
 
 type Resources = Record<string, Record<keyof never, unknown>>
 
-interface I18nEditorContainerProps {
+export interface I18nEditorContainerProps {
   root: Element
 }
 type I18nEditorContainer = (props: I18nEditorContainerProps) => ReactElement
@@ -116,7 +116,7 @@ export function I18nextEditorContainer(props: I18nextEditorContainerProps) {
 
 
 
-export enum Tabs {
+enum Tabs {
   ResourceEditor,
   ComparisonTable
 }
@@ -136,7 +136,7 @@ interface I18nEditorProps {
   onResourcesChange?(resources: Resources): void
 }
 
-function I18nEditor(props: I18nEditorProps) {
+export function I18nEditor(props: I18nEditorProps) {
   const jsonEditorInstanceRef = useRef<editor.IStandaloneCodeEditor | null>(null)
   const highlightInRange = useMonacoHighlightInRange(jsonEditorInstanceRef)
 
