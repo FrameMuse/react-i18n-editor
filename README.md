@@ -27,11 +27,13 @@ npm i react-i18n-editor
 
 ### Import
 
+Note: You also import `I18nextEditorContainer` to connect to `I18nextProvider`.
+
 ```tsx
 import "react-i18n-editor/dist/styles/main.css"
 
 import i18next from "i18next"
-import { I18nEditorBoundary } from "react-i18n-editor"
+import { I18nEditorBoundary, I18nextEditorContainer } from "react-i18n-editor"
 
 function App() {
   return (
@@ -115,7 +117,7 @@ To connect `i18next`, you will need `i18next-react` and pass `I18nextEditorConta
 import "react-i18n-editor/dist/styles/main.css"
 
 import i18next from "i18next"
-import { I18nextEditorContainer } from "react-i18n-editor"
+import { I18nEditorBoundary, I18nextEditorContainer } from "react-i18n-editor"
 
 function App() {
   return (
@@ -177,7 +179,9 @@ Then simply pass your `MyCustomEditorContainer` to `container` prop as you do wi
 import "react-i18n-editor/dist/styles/main.css"
 
 import i18next from "i18next"
-import { I18nextEditorContainer } from "react-i18n-editor"
+import { I18nEditorBoundary } from "react-i18n-editor"
+
+import MyCustomEditorContainer from "./MyCustomEditorContainer"
 
 function App() {
   return (
@@ -192,4 +196,4 @@ function App() {
 
 ### Contribution
 
-Please, help me moving this library forward with your feedback to [GitHub Issues](https://github.com/FrameMuse/react-i18n-editor/issues) or [my discord server](https://discord.gg/DCUWrRhvnt) \(^_^)
+Please, help me moving this library forward with your feedback to [GitHub Issues](https://github.com/FrameMuse/react-i18n-editor/issues) or [my discord server](https://discord.gg/DCUWrRhvnt) \\(^_^)
