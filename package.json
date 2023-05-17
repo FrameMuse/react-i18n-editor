@@ -17,9 +17,8 @@
     "fix-all": "eslint src --fix"
   },
   "peerDependencies": {
-    "react": ">=16.0.0",
-
     "i18next": ">=20.0.0",
+    "react": ">=16.0.0",
     "react-i18next": ">=10.0.0"
   },
   "peerDependenciesMeta": {
@@ -53,6 +52,8 @@
     "react-scripts": "^5.0.1",
     "rollup": "^2.77.0",
     "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-ignore-import": "^1.3.2",
+    "rollup-plugin-scss": "^4.0.0",
     "sass": "^1.62.1",
     "tslib": "^2.4.0",
     "typescript": "latest"
