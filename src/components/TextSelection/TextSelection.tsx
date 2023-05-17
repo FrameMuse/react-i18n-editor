@@ -3,9 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { useEvent } from "react-use"
 import TextNode from "utils/TextNode"
 
-import Box from "../geometry/Box"
-import Point from "../geometry/Point"
-import JsonModel from "../JsonModel"
+import Box from "../../geometry/Box"
+import Point from "../../geometry/Point"
+import JsonModel from "../../JsonModel"
 import SelectedEntriesWindow from "./components/SelectedEntriesWindow/SelectedEntriesWindow"
 import SelectionBox from "./components/SelectionBox/SelectionBox"
 

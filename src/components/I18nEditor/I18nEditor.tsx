@@ -37,7 +37,7 @@ import { modifiedClass } from "utils/react"
 import useMonacoHighlightInRange from "../../hooks/useMonacoHighlightInRange"
 import JsonModel, { JsonModelSymbol } from "../../JsonModel"
 import KeyChain from "../../KeyChain"
-import TextSelection from "../../TextSelection/TextSelection"
+import TextSelection from "../TextSelection/TextSelection"
 import JsonEditor from "./components/JsonEditor"
 import SplitChildren from "./components/SplitChildren"
 
