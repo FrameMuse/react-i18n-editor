@@ -22,7 +22,7 @@ import ComparisonTable from "components/ComparisonTable/ComparisonTable"
 import useResize from "hooks/useResize"
 import { InitOptions } from "i18next"
 import _ from "lodash"
-import { IRange } from "monaco-editor/esm/vs/editor/editor.api"
+import { editor, IRange } from "monaco-editor/esm/vs/editor/editor.api"
 import { ReactElement, ReactNode, useMemo, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import Select from "ui/Select/Select"
@@ -137,7 +137,9 @@ interface I18nEditorProps {
 }
 
 function I18nEditor(props: I18nEditorProps) {
-  const highlightInRange = useMonacoHighlightInRange()
+  const jsonEditorInstanceRef = useRef<editor.IStandaloneCodeEditor | null>(null)
+  const highlightInRange = useMonacoHighlightInRange(jsonEditorInstanceRef)
+
   const [, setTab] = useTabRouter()
 
   const [language, setLanguage] = useState<string>(props.defaultLanguage ?? props.languages[0])
@@ -167,6 +169,10 @@ function I18nEditor(props: I18nEditorProps) {
 
     setResources(newResources)
     props.onResourcesChange?.(newResources)
+  }
+
+  function onEditorMount(editor: editor.IStandaloneCodeEditor) {
+    jsonEditorInstanceRef.current = editor
   }
 
   function onEditorContentChange(value: string) {
@@ -230,7 +236,15 @@ function I18nEditor(props: I18nEditorProps) {
           </div>
           <div className="i18n-editor__container">
             <TabRoute path={Tabs.ResourceEditor}>
-              <JsonEditor width={width + "px"} content={resourceSerialized} onChange={onEditorContentChange} onSymbolClick={onCompare} />
+              <JsonEditor
+                width={width + "px"}
+                content={resourceSerialized}
+
+                onChange={onEditorContentChange}
+                onSymbolClick={onCompare}
+
+                onMount={onEditorMount}
+              />
             </TabRoute>
             <TabRoute path={Tabs.ComparisonTable}>
               <ComparisonTable
