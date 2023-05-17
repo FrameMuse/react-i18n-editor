@@ -1,3 +1,5 @@
+import "react"
+
 declare global {
   namespace React {
     interface CSSProperties {
@@ -6,5 +8,3 @@ declare global {
     }
   }
 }
-
-export { }

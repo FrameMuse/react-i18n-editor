@@ -54,8 +54,19 @@ class Box {
     )
   }
 
-  static fromDOMRect(domRect: DOMRect): Box {
+  static fromRect(domRect: DOMRect): Box {
     return new Box(domRect.left, domRect.top, domRect.right, domRect.bottom)
+  }
+  /**
+   * Same as `fromRect` but includes `window.scrollX` and `window.scrollY`.
+   */
+  static fromRectWithScroll(domRect: DOMRect): Box {
+    return new Box(
+      domRect.left + window.scrollX,
+      domRect.top + window.scrollY,
+      domRect.right + window.scrollX,
+      domRect.bottom + window.scrollY
+    )
   }
 
   static fromPoints(start: Point, end: Point): Box {

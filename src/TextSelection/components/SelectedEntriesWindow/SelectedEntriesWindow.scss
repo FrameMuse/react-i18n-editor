@@ -1,4 +1,4 @@
-@import "~assets/scss/base.scss";
+@import "~app/assets/scss/bundle.scss";
 
 .selected-entries {
 	--transform-x: -0.925em;
@@ -6,7 +6,7 @@
 
 	font-family: Consolas, "Courier New", Courier, monospace;
 
-	position: fixed;
+	position: absolute;
 	top: calc(1px * var(--top));
 	left: calc(1px * var(--left));
 
@@ -20,6 +20,8 @@
 
 	transform: translate(var(--transform-x), var(--transform-y));
 	transition: 200ms ease opacity, 200ms ease transform;
+
+	z-index: 52;
 
 	&::before {
 		$size: 0.5em;

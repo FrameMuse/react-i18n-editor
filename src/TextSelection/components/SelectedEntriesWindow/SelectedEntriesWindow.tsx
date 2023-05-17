@@ -1,46 +1,50 @@
 import "./SelectedEntriesWindow.scss"
 
 import Box from "geometry/Box"
-import { RangedEntry } from "RangedEntries"
+import { JsonModelSymbol } from "JsonModel"
 import { useMemo } from "react"
-import { classWithModifiers } from "utils"
+import { modifiedClass } from "utils/react"
 
-import { SelectionEntry, TextSelectionProps } from "../../TextSelection"
+import { TextSelectionEntry, TextSelectionProps } from "../../TextSelection"
 
 interface SelectedEntriesWindowProps extends TextSelectionProps {
   selectionBox: Box
-  selectedEntries: SelectionEntry[]
+  selectedEntries: TextSelectionEntry[]
 
   selecting: boolean
 }
 
 function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
   const rangedSelectedEntries = useMemo(() => {
-    const items: { selectedEntry: SelectionEntry; rangedEntries: RangedEntry[] }[] = []
+    const items: { selectedEntry: TextSelectionEntry; symbols: JsonModelSymbol[] }[] = []
 
     for (const selectedEntry of props.selectedEntries) {
       items.push({
         selectedEntry,
-        rangedEntries: props.rangedEntries.findByValue(selectedEntry.textContent)
+        symbols: props.jsonModel.findAllByValue(selectedEntry.textContent)
       })
     }
 
     return items
-  }, [props.selectedEntries, props.rangedEntries])
+  }, [props.selectedEntries, props.jsonModel])
 
 
-  const textSelectionStyle = {
+  const selectedEntriesModifiers: string[] = []
+  if (props.selecting) selectedEntriesModifiers.push("selecting")
+  if (props.selectedEntries.length === 0) selectedEntriesModifiers.push("hidden")
+
+  const selectedEntriesStyle = {
     "--left": props.selectionBox.center.x,
     "--top": props.selectionBox.center.y
   }
 
   return (
-    <div className={classWithModifiers("selected-entries", props.selectedEntries.length === 0 && "hidden", props.selecting && "selecting")} style={textSelectionStyle}>
+    <div className={modifiedClass("selected-entries", ...selectedEntriesModifiers)} style={selectedEntriesStyle}>
       <div className="selected-entries__title">
         {props.selectedEntries.length} entries selected
       </div>
       <div className="selected-entries__groups">
-        {rangedSelectedEntries.map(({ selectedEntry, rangedEntries }, index) => (
+        {rangedSelectedEntries.map(({ selectedEntry, symbols: rangedEntries }, index) => (
           <div className="selected-entries-group" key={index}>
             <div className="selected-entries-group__title">{`"${selectedEntry.textContent}"`}</div>
             <div className="selected-entries-group__matches">
@@ -48,13 +52,13 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
                 <div className="selected-entries-match" key={index}>
                   <div className="selected-entries-match__number">{index + 1}.</div>
                   <div className="selected-entries-match__keys">
-                    {entry.keys.map((key, index) => (
+                    {entry.keyChain.keys.map((key, index) => (
                       <div className="selected-entries-match__key" key={index}>{`"${key}"`}</div>
                     ))}
                   </div>
                   <div className="selected-entries-match__buttons">
-                    <button className="selected-entries-match__button" onClick={() => props.onResourceEditorReveal?.(entry.range)}>👀</button>
-                    <button className="selected-entries-match__button" onClick={() => props.onCompareRequest?.(entry.range)}>📰</button>
+                    <button className="selected-entries-match__button" onClick={() => props.onHighlight?.(entry.range)}>👀</button>
+                    <button className="selected-entries-match__button" onClick={() => props.onCompare?.(entry.range)}>📰</button>
                   </div>
                 </div>
               ))}

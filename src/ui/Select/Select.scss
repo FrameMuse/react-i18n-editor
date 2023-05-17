@@ -1,0 +1,100 @@
+@import "~app/assets/scss/bundle.scss";
+
+.select {
+	position: relative;
+
+	display: grid;
+	gap: 0.75em;
+
+	width: var(--select-width, fit-content);
+	// min-width: 15em;
+}
+
+.select__label {
+	font-size: 1.125rem;
+	font-weight: 700;
+}
+
+.select__appearance {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1em;
+
+	@include InputAppearance(0.1em 0.25em);
+
+	&--transparent {
+
+		&,
+		&:focus,
+		&--focused {
+			border-color: transparent;
+			background: transparent;
+		}
+
+		&:focus,
+		&--focused {
+			box-shadow: 0 0 0 4px rgba(white, 0.25);
+		}
+
+		.select__icon,
+		.select-selected {
+			opacity: 1;
+			color: white;
+		}
+	}
+
+	cursor: pointer;
+}
+
+.select__icon {
+	--icon-size: 0.75em;
+
+	transition: 200ms ease transform;
+
+	&--up {
+		transform: rotateX(180deg);
+	}
+}
+
+.select-selected {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	font-size: $font-size-h3;
+	font-weight: 500;
+
+	// opacity: 0.75;
+
+	&--empty {
+		color: rgba(black, 0.5);
+	}
+
+	&--multiple {
+		display: flex;
+		align-items: center;
+		// Calculates by font-size and paddings.
+		// min-height: calc(1em + 0.5em * 2);
+	}
+}
+
+.select-selected__options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+}
+
+.select-selected__option {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+
+	padding: 0.25em 0.5em;
+	// background: rgba($color-blue, 0.1);
+	background: rgba(black, 0.5);
+	// border: 1px solid rgba($color-blue, 0.25);
+	border-radius: 0.25em;
+
+	font-weight: 400;
+}

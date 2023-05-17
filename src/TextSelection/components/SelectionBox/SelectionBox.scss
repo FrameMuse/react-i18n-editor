@@ -1,18 +1,22 @@
-@import "~assets/scss/base.scss";
+@import "~app/assets/scss/bundle.scss";
 
 .selection-box {
-	position: fixed;
+	position: absolute;
 	inset: 0;
 
 	user-select: none;
 	pointer-events: none;
+
+	z-index: auto;
 }
 
-.selection-box__overlay {
+.selection-box__entries {
 	display: flex;
 
 	position: absolute;
 	inset: 0;
+
+	z-index: auto;
 }
 
 .selection-box__element {
@@ -35,7 +39,7 @@
 	border-radius: 0.25em;
 
 	transform: translate(-$paddingBlock, -$paddingInline);
-	transition: 200ms ease background-color, 200ms ease transform;
+	transition: 200ms ease background-color;
 
 	box-sizing: border-box;
 
@@ -61,6 +65,8 @@
 	border-radius: 0.25em;
 
 	transition: 500ms ease opacity;
+
+	z-index: 50;
 
 	&--hidden {
 		opacity: 0;

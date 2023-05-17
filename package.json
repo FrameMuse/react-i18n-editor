@@ -1,7 +1,7 @@
 {
-  "name": "react-i18next-editor",
-  "version": "0.0.0",
-  "description": "Enables editor directly on the webpage.",
+  "name": "react-i18n-editor",
+  "version": "0.0.1",
+  "description": "Enables localization editor directly on a webpage.",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",
   "files": [
@@ -17,9 +17,18 @@
     "fix-all": "eslint src --fix"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "i18next": "^22.4.15",
-    "react-i18next": "^12.2.2"
+    "react": ">=16.0.0",
+
+    "i18next": ">=20.0.0",
+    "react-i18next": ">=10.0.0"
+  },
+  "peerDependenciesMeta": {
+    "i18next": {
+      "optional": true
+    },
+    "react-i18next": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@monaco-editor/react": "^4.5.0",
@@ -50,7 +59,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FrameMuse/react-i18next-editor.git"
+    "url": "git+https://github.com/FrameMuse/react-i18n-editor.git"
   },
   "keywords": [
     "react",
@@ -65,10 +74,11 @@
   "author": "FrameMuse",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FrameMuse/react-i18next-editor/issues"
+    "url": "https://github.com/FrameMuse/react-i18n-editor/issues"
   },
   "engines": {
-    "node": "^18"
+    "node": "^18.0.0",
+    "vscode": "^1.22.0"
   },
   "jest": {
     "testMatch": [
