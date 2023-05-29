@@ -1,4 +1,3 @@
-
 export {
   I18N_EDITOR_REFRESH_EVENT,
 
