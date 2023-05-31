@@ -2,7 +2,8 @@ import "./SelectedEntriesWindow.scss"
 
 import Box from "geometry/Box"
 import { JsonModelSymbol } from "JsonModel"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
+import Field from "ui/Field/Field"
 import { modifiedClass } from "utils/react"
 
 import { TextSelectionEntry, TextSelectionProps } from "../../TextSelection"
@@ -15,6 +16,9 @@ interface SelectedEntriesWindowProps extends TextSelectionProps {
 }
 
 function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
+  const [search, setSearch] = useState<string | null>(null)
+
+
   const rangedSelectedEntries = useMemo(() => {
     const items: { selectedEntry: TextSelectionEntry; symbols: JsonModelSymbol[] }[] = []
 
@@ -27,7 +31,14 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
 
     return items
   }, [props.selectedEntries, props.jsonModel])
+  const rangedSelectedEntriesFiltered = useMemo(() => {
+    return rangedSelectedEntries.filter(entry => {
+      if (search == null) return true
 
+      const searchRegExp = new RegExp(search)
+      return searchRegExp.test(entry.selectedEntry.textContent)
+    })
+  }, [rangedSelectedEntries, search])
 
   const selectedEntriesModifiers: string[] = []
   if (props.selecting) selectedEntriesModifiers.push("selecting")
@@ -42,6 +53,14 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
     <div className={modifiedClass("selected-entries", ...selectedEntriesModifiers)} style={selectedEntriesStyle}>
       <div className="selected-entries__title">
         {props.selectedEntries.length} entries selected
+      </div>
+      <div className="selected-entries__filters">
+        <Field placeholder="Search & Filter" onChange={event => setSearch(event.currentTarget.value)} />
+      </div>
+      <div className="selected-entries__filtered">
+        <span>
+          {props.selectedEntries.length - rangedSelectedEntriesFiltered.length} entries hidden
+        </span>
       </div>
       <div className="selected-entries__groups">
         {rangedSelectedEntries.map(({ selectedEntry, symbols: rangedEntries }, index) => (

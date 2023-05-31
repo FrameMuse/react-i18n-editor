@@ -58,6 +58,20 @@
 	color: white;
 }
 
+.selected-entries__filters {
+	padding: 0.5em 1em;
+	background: rgba(black, 0.35);
+}
+
+.selected-entries__filtered {
+	padding: 0.25em 1em;
+	background: rgba(black, 0.5);
+
+	span {
+		font-size: 0.75rem;
+	}
+}
+
 .selected-entries__groups {
 	display: grid;
 	gap: 1em;
