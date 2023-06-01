@@ -37,7 +37,9 @@
 
 	// height: $font-size; // To ensure input has the same height as font-size.
 
-	&::placeholder {}
+	&::placeholder {
+		color: rgba(255,255,255,0.5);
+	}
 
 	&:disabled {
 		cursor: not-allowed;
