@@ -35,8 +35,12 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
     return rangedSelectedEntries.filter(entry => {
       if (search == null) return true
 
-      const searchRegExp = new RegExp(search)
-      return searchRegExp.test(entry.selectedEntry.textContent)
+      try {
+        const searchRegExp = new RegExp(search)
+        return searchRegExp.test(entry.selectedEntry.textContent)
+      } catch (error) {
+        return true
+      }
     })
   }, [rangedSelectedEntries, search])
 
@@ -63,7 +67,7 @@ function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
         </span>
       </div>
       <div className="selected-entries__groups">
-        {rangedSelectedEntries.map(({ selectedEntry, symbols: rangedEntries }, index) => (
+        {rangedSelectedEntriesFiltered.map(({ selectedEntry, symbols: rangedEntries }, index) => (
           <div className="selected-entries-group" key={index}>
             <div className="selected-entries-group__title">{`"${selectedEntry.textContent}"`}</div>
             <div className="selected-entries-group__matches">
