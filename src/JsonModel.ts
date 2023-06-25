@@ -21,6 +21,8 @@ interface JsonModelToken {
 }
 
 class JsonModel {
+  static SymbolPattern = `"([^"]+)"(?=:\\s*[\\[\\{]?)`
+
   readonly ranges: IRange[] = []
   readonly symbols: JsonModelSymbol[] = []
 
@@ -37,7 +39,7 @@ class JsonModel {
     for (const { keys, type, value } of this.tokenize()) {
       const keyChain = new KeyChain(keys)
 
-      const match = model.findNextMatch(`"([^"]+)":\\s*[\\[\\{]?`, searchStart, true, true, null, true)
+      const match = model.findNextMatch(JsonModel.SymbolPattern, searchStart, true, true, null, true)
       if (match == null) continue
       if (match.matches?.[1] !== keyChain.last) continue
 
@@ -165,6 +167,15 @@ class JsonModel {
   static fromSerialized(serialized: string): JsonModel {
     const value = JSON.parse(serialized)
     return new JsonModel(value, serialized)
+  }
+
+
+  static findMatches(model: editor.ITextModel) {
+    return model.findMatches(this.SymbolPattern, false, true, false, null, false, 5000)
+  }
+
+  static isSymbol(value: string): boolean {
+    return new RegExp(this.SymbolPattern).test(value)
   }
 }
 

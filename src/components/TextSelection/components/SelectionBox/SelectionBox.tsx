@@ -1,44 +1,43 @@
 import "./SelectionBox.scss"
 
+import { TextSelectionNodeFlatten } from "components/TextSelection/TextSelectionNode"
 import Box from "geometry/Box"
-import { useMemo } from "react"
 import { modifiedClass } from "utils/react"
 
-import { TextSelectionEntry } from "../../TextSelection"
 
 interface SelectionBoxProps {
+  /**
+   * Accepts only flatten nodes (single box nodes).
+  */
+  nodes: TextSelectionNodeFlatten[]
   selectionBox: Box
-  selectedEntries: TextSelectionEntry[]
-  selectionEntries: TextSelectionEntry[]
 
-  selecting: boolean
+  hidden?: boolean
 }
 
 function SelectionBox(props: SelectionBoxProps) {
-  // Hide if nothing is selected.
-  const hidden = !props.selecting && props.selectedEntries.length === 0
-  // Flatten multiple boxes to single.
-  const selectionEntries = useMemo(() => {
-    return props.selectionEntries.flatMap(entry => entry.boxes.map(box => ({ ...entry, box })))
-  }, [props.selectionEntries])
-
   return (
     <div className="selection-box">
       <div className="selection-box__entries">
-        {selectionEntries.map((entry, index) => (
-          <div className={modifiedClass("selection-box__element", entry.selected && "active")} style={{
-            "--left": entry.box.startX,
-            "--top": entry.box.startY,
+        {props.nodes.map((node, index) => (
+          <div className={modifiedClass("selection-box__element", node.selected && "active")} style={{
+            "--left": Math.round(node.box.startX),
+            "--top": Math.round(node.box.startY),
 
-            "--width": entry.box.width,
-            "--height": entry.box.height,
+            "--width": Math.round(node.box.width),
+            "--height": Math.round(node.box.height),
 
-            zIndex: entry.zIndex,
-            visibility: entry.visibility ? "visible" : "hidden"
-          }} key={index} />
+            ...node.styles
+          }}
+
+          contentEditable
+          spellCheck
+
+          key={index}
+          />
         ))}
       </div>
-      <div className={modifiedClass("selection-box__selection", hidden && "hidden")} style={{
+      <div className={modifiedClass("selection-box__selection", props.hidden && "hidden")} style={{
         "--left": props.selectionBox.startX,
         "--top": props.selectionBox.startY,
 

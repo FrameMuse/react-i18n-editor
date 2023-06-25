@@ -1,17 +1,27 @@
 import MonacoEditor, { Monaco, OnMount } from "@monaco-editor/react"
+import JsonModel from "JsonModel"
+import { startCase } from "lodash"
 import { editor, IRange } from "monaco-editor/esm/vs/editor/editor.api"
+import Enum from "utils/Enum"
+
+export enum JsonEditorCodeActionKind {
+  ScrollIntoView
+}
 
 interface JsonEditorProps {
   width?: string
   content: string
-
-  /**
-   * Triggers on a field (symbol) click.
-   */
-  onSymbolClick?(range: IRange): void
+  onMount?: OnMount
   onChange?(content: string): void
 
-  onMount?: OnMount
+  /**
+   * Triggers on a symbol (field) click.
+   */
+  onSymbolClick?(range: IRange): void
+  /**
+   * Triggers when "Scroll into view" is chosen in Code Actions.
+   */
+  onScrollIntoView?(range: IRange): boolean
 }
 
 function JsonEditor(props: JsonEditorProps) {
@@ -23,11 +33,31 @@ function JsonEditor(props: JsonEditorProps) {
 
   function onMount(editor: editor.IStandaloneCodeEditor, monaco: Monaco) {
     props.onMount?.(editor, monaco)
-    // Register Link Provider (Link request for Symbol click).
+
+    // Providers.
+    registerSymbolClickProvider(monaco)
+    registerCodeActionsProvider(monaco)
+
+    // Commands.
+    registerScrollIntoViewCommand(monaco)
+  }
+
+
+  function registerScrollIntoViewCommand(monaco: Monaco) {
+    monaco.editor.registerCommand("ScrollIntoView", (_accessor, range: IRange) => {
+      props.onScrollIntoView?.(range)
+    })
+  }
+
+
+  /**
+   * Registers Link Provider (Link request for Symbol click).
+   */
+  function registerSymbolClickProvider(monaco: Monaco) {
     monaco.languages.registerLinkProvider("json", {
       provideLinks(model) {
         return {
-          links: model.findMatches(`".*?"(?=:)`, false, true, false, null, false, 5000).map(match => {
+          links: JsonModel.findMatches(model).map(match => {
             return {
               range: match.range,
               tooltip: "Open in Comparison Table"
@@ -39,6 +69,31 @@ function JsonEditor(props: JsonEditorProps) {
         props.onSymbolClick?.(link.range)
 
         return null
+      }
+    })
+  }
+
+  /**
+   * Registers Code Actions.
+   */
+  function registerCodeActionsProvider(monaco: Monaco) {
+    monaco.languages.registerCodeActionProvider("json", {
+      provideCodeActions(model, range) {
+        const value = model.getValueInRange(range)
+        if (!JsonModel.isSymbol(value)) return null
+
+        return {
+          dispose() {},
+          actions: Enum.keys(JsonEditorCodeActionKind).map(kind => ({
+            title: startCase(kind),
+            kind,
+
+            command: {
+              id: kind,
+              title: startCase(kind)
+            }
+          }))
+        }
       }
     })
   }
@@ -58,7 +113,7 @@ function JsonEditor(props: JsonEditorProps) {
       defaultValue={props.content}
 
       theme="vs-dark"
-      options={{ smoothScrolling: true }}
+      options={{ smoothScrolling: true, fixedOverflowWidgets: true }}
 
       onMount={onMount}
       onChange={onChange} />

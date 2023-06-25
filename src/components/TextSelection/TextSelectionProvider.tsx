@@ -1,34 +1,20 @@
-import { IRange } from "monaco-editor/esm/vs/editor/editor.api"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { useEvent } from "react-use"
+import { mapSet } from "utils/common"
 import TextNode from "utils/TextNode"
 
 import Box from "../../geometry/Box"
 import Point from "../../geometry/Point"
-import JsonModel from "../../JsonModel"
-import SelectedEntriesWindow from "./components/SelectedEntriesWindow/SelectedEntriesWindow"
-import SelectionBox from "./components/SelectionBox/SelectionBox"
+import selectionContext, { TextSelectionContext } from "./selectionContext"
+import TextSelectionNode from "./TextSelectionNode"
 
-export interface TextSelectionEntry {
-  boxes: Box[]
-  textContent: string
-  /**
-   * Whether the entry is intersected with selection box.
-   */
-  selected: boolean
-  zIndex?: number
-  visibility: boolean
-}
-
-export interface TextSelectionProps {
+export interface TextSelectionProviderProps {
   root: Element
-  jsonModel: JsonModel
 
-  onHighlight?(range: IRange): void
-  onCompare?(range: IRange): void
+  children: ReactNode
 }
 
-function TextSelection(props: TextSelectionProps) {
+function TextSelectionProvider(props: TextSelectionProviderProps) {
   // Calculating selection box //
 
   const [selecting, setSelecting] = useState(false)
@@ -134,34 +120,29 @@ function TextSelection(props: TextSelectionProps) {
 
   // Creating convenient data structure //
 
-  const selectionEntries: TextSelectionEntry[] = useMemo(() => {
-    const entries: TextSelectionEntry[] = []
-    for (const textNode of textNodes) {
-      if (textNode.textContent == null) continue
-
-      const rects = TextNode.getRects(textNode, false)
-
-      const boxes = rects.map(Box.fromRectWithScroll)
-      const selected = boxes.some(box => selectionBox.intersects(box))
-      const textContent = textNode.textContent
-
-      const zIndex = TextNode.getMaxZIndex(textNode, props.root)
-      const visibility = TextNode.isVisible(textNode, props.root)
-
-      entries.push({ boxes, selected, textContent, zIndex, visibility })
-    }
-    return entries
+  const selectionNodes: TextSelectionNode[] = useMemo(() => {
+    return mapSet(textNodes, textNode => {
+      return new TextSelectionNode(textNode, selectionBox, props.root)
+    })
   }, [selectionBox, textNodes, props.root])
-  const selectedEntries: TextSelectionEntry[] = useMemo(() => {
-    return selectionEntries.filter(entry => entry.selected && entry.visibility)
-  }, [selectionEntries])
+  const selectedNodes: TextSelectionNode[] = useMemo(() => {
+    return selectionNodes.filter(node => node.selected)
+  }, [selectionNodes])
+
+
+
+  const context: TextSelectionContext = {
+    box: selectionBox,
+    nodes: selectionNodes,
+    nodesSelected: selectedNodes,
+    selecting
+  }
 
   return (
-    <>
-      <SelectionBox {...{ selectionBox, selectedEntries, selectionEntries }} selecting={selecting} />
-      <SelectedEntriesWindow {...props} {...{ selectionBox, selectedEntries }} selecting={selecting} />
-    </>
+    <selectionContext.Provider value={context}>
+      {props.children}
+    </selectionContext.Provider>
   )
 }
 
-export default TextSelection
+export default TextSelectionProvider

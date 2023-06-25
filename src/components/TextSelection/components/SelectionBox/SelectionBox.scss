@@ -39,7 +39,7 @@
 	border-radius: 0.25em;
 
 	transform: translate(-$paddingBlock, -$paddingInline);
-	transition: 200ms ease background-color;
+	transition: 200ms ease background-color, 200ms ease border;
 
 	box-sizing: border-box;
 

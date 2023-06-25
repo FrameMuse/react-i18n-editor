@@ -1,4 +1,4 @@
-import _ from "lodash"
+import { omit } from "lodash"
 import { HTMLAttributes, useContext } from "react"
 import { modifiedClass } from "utils/react"
 
@@ -24,7 +24,7 @@ function TabLink(props: TabLinkProps) {
 
   const className = props.className && modifiedClass(props.className, props.to === tab && "active")
   return (
-    <button type="button" {..._.omit(props, "to", "verification")} className={className} onClick={onClick}>
+    <button type="button" {...omit(props, "to", "verification")} className={className} onClick={onClick}>
       {props.children}
     </button>
   )

@@ -25,8 +25,7 @@ const config = [
         fileName: "styles/main.css",
         sourceMap: true,
         includePaths: ["src"],
-        failOnError: true,
-        sass: require("sass")
+        failOnError: true
       })
     ]
   },

@@ -1,6 +1,6 @@
 import "./Textarea.scss"
 
-import _ from "lodash"
+import { omit } from "lodash"
 import { TextareaHTMLAttributes } from "react"
 import { classMerge } from "utils/react"
 
@@ -12,7 +12,7 @@ function Textarea(props: TextareaProps) {
       {props.children && (
         <div className="textarea__label">{props.children}{props.required && "*"}</div>
       )}
-      <textarea {..._.omit(props, "children")} className={classMerge("textarea__appearance", props.className)} />
+      <textarea {...omit(props, "children")} className={classMerge("textarea__appearance", props.className)} />
     </label>
   )
 }

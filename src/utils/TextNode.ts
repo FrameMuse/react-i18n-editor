@@ -57,6 +57,19 @@ class TextNode {
     return [...rects]
   }
 
+  /**
+   * Unused method, but may be useful in future.
+   */
+  static getStyleProperty(textNode: Node, property: keyof CSSStyleDeclaration): string | undefined {
+    const parentElement = textNode.parentElement
+    if (parentElement == null) return
+
+    const style = window.getComputedStyle(parentElement)
+    const styleProperty = style[property]?.toString()
+
+    return styleProperty
+  }
+
   static getMaxZIndex(textNode: Node, boundary?: Node): number | undefined {
     let maxZIndex: number | undefined = undefined
 

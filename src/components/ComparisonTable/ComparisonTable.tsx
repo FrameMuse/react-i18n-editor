@@ -2,7 +2,7 @@ import "./ComparisonTable.scss"
 
 import { JsonModelSymbol } from "JsonModel"
 import KeyChain from "KeyChain"
-import _ from "lodash"
+import { result } from "lodash"
 import { useMemo, useState } from "react"
 import { optionsFromKeys } from "ui/Select/Select.helpers"
 import SelectMultiple from "ui/Select/SelectMultiple"
@@ -52,7 +52,7 @@ function ComparisonTable(props: ComparisonTableProps) {
 
     const rows: ComparisonTableRow[] = keysChains.map(keyChain => ({
       keyChain,
-      values: props.languages.map(language => _.result(props.resources[language], keyChain.keys, ""))
+      values: props.languages.map(language => result(props.resources[language], keyChain.keys, ""))
     }))
 
     return rows

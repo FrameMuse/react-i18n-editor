@@ -1,34 +1,34 @@
-import _ from "lodash"
+import { startCase } from "lodash"
 import Enum, { EnumType } from "utils/Enum"
 
 import { SelectOptionElement } from "./Select.types"
 
 /**
- * @param startCase - whether or not transform keys to start case (default `false`).
+ * @param useStartCase - whether or not transform keys to start case (default `false`).
  *
  */
-export function optionsFromEntries<T>(entries: [key: string | number, value: string | number][], startCase = false): SelectOptionElement<T>[] {
+export function optionsFromEntries<T>(entries: [key: string | number, value: string | number][], useStartCase = false): SelectOptionElement<T>[] {
   return entries.map(([key, value], index) => (
-    <option value={value} key={index}>{startCase ? _.startCase(String(key)) : key}</option>
+    <option value={value} key={index}>{useStartCase ? startCase(String(key)) : key}</option>
   ))
 }
 
 /**
- * @param startCase - whether or not transform keys to start case (default `false`).
+ * @param useStartCase - whether or not transform keys to start case (default `false`).
  *
  */
-export function optionsFromKeys(keys: string[], startCase = false): SelectOptionElement<string>[] {
+export function optionsFromKeys(keys: string[], useStartCase = false): SelectOptionElement<string>[] {
   return keys.map((key, index) => (
-    <option value={key} key={index}>{startCase ? _.startCase(String(key)) : key}</option>
+    <option value={key} key={index}>{useStartCase ? startCase(String(key)) : key}</option>
   ))
 }
 
 /**
- * @param startCase - whether or not transform keys to start case (default `true`).
+ * @param useStartCase - whether or not transform keys to start case (default `true`).
  *
  */
-export function optionsFromEnum(enumerator: EnumType<never>, startCase = true): SelectOptionElement[] {
-  return optionsFromEntries(Enum.entries(enumerator), startCase)
+export function optionsFromEnum(enumerator: EnumType<never>, useStartCase = true): SelectOptionElement[] {
+  return optionsFromEntries(Enum.entries(enumerator), useStartCase)
 }
 
 export const TrueFalseOptions = [

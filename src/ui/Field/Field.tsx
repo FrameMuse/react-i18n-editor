@@ -1,6 +1,6 @@
 import "./Field.scss"
 
-import _ from "lodash"
+import { omit } from "lodash"
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useId, useState } from "react"
 import { isRecord } from "utils/common"
 import { modifiedClass } from "utils/react"
@@ -65,7 +65,7 @@ function Field(props: FieldProps) {
       )}
       <div className={modifiedClass( "field__appearance", invalid && "invalid", focused && "focused", props.disabled && "disabled")}>
         <input
-          {..._.omit(props, "iconName", "customValidity", "children", "onIconClick", "dataList")}
+          {...omit(props, "iconName", "customValidity", "children", "onIconClick", "dataList")}
           className="field__input"
           maxLength={props.type === "tel" ? undefined : props.maxLength}
           placeholder={props.placeholder}

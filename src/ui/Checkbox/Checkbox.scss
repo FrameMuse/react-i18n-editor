@@ -1,0 +1,44 @@
+@import "assets/scss/base.scss";
+
+.checkbox {
+	display: flex;
+	align-items: center;
+}
+
+.checkbox__input {
+	display: none;
+}
+
+.checkbox__appearance {
+	display: flex;
+	padding: 0.5em;
+	border: 1px solid;
+	border-radius: 0.25em;
+	color: $color-gray;
+	transition: 150ms ease border-color, 150ms ease color;
+	cursor: pointer;
+
+	:checked+& {
+		color: $color-blue;
+
+		.checkbox__icon {
+			opacity: 1;
+		}
+	}
+}
+
+.checkbox__icon {
+	--icon-size: 1rem;
+
+	line-height: 1;
+
+	opacity: 0;
+	transition: 150ms ease opacity;
+}
+
+.checkbox__label {
+	font-size: 1.125rem;
+	line-height: 1.35;
+
+	margin-left: 0.75rem;
+}
