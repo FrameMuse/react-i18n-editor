@@ -68,7 +68,7 @@ class JsonModel {
         const keys: string[] = [...initialKeys]
 
         if (type === "record") keys.push(key)
-        if (type === "array") keys.push(`[${key}]`)
+        if (type === "array") keys.push(key)
 
         yield { keys, type: "primitive", value }
 
