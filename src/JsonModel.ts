@@ -9,7 +9,13 @@ export interface JsonModelSymbol {
   type: JsonModelSymbolType
   value: unknown
 
-  keyChain: KeyChain
+  /**
+   * A `KeyChain` that leads to where the `value` is stored at.
+   */
+  atKeyChain: KeyChain
+  /**
+   * A range at where the `value` is written.
+   */
   range: IRange
 }
 
@@ -37,21 +43,21 @@ class JsonModel {
 
     let searchStart: IPosition = { column: 0, lineNumber: 0 }
     for (const { keys, type, value } of this.tokenize()) {
-      const keyChain = new KeyChain(keys)
+      const atKeyChain = new KeyChain(keys)
 
       const match = model.findNextMatch(JsonModel.SymbolPattern, searchStart, true, true, null, true)
       if (match == null) continue
-      if (match.matches?.[1] !== keyChain.last) continue
+      if (match.matches?.[1] !== atKeyChain.last) continue
 
       searchStart = match.range.getEndPosition()
       const range = match.range
-      const symbol = { type, value, keyChain, range }
+      const symbol: JsonModelSymbol = { type, value, atKeyChain, range }
 
       this.ranges.push(range)
       this.symbols.push(symbol)
 
       this.symbolsByRange.set(range, symbol)
-      this.symbolsByKeyChain.set(keyChain.serialized, symbol)
+      this.symbolsByKeyChain.set(atKeyChain.serialized, symbol)
     }
 
     model.dispose()
@@ -101,7 +107,7 @@ class JsonModel {
    * ["view.home.page.title"]
    */
   private removeSymbolParents(symbol: JsonModelSymbol, symbols: JsonModelSymbol[]): JsonModelSymbol[] {
-    return symbols.filter(otherSymbol => !symbol.keyChain.startsWith(otherSymbol.keyChain))
+    return symbols.filter(otherSymbol => !symbol.atKeyChain.startsWith(otherSymbol.atKeyChain))
   }
 
   public getByRange(range: IRange): JsonModelSymbol {

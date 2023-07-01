@@ -1,3 +1,5 @@
+import { isRecord } from "utils/common"
+
 class KeyChain {
   readonly last: string
   readonly keys: string[]
@@ -28,6 +30,27 @@ class KeyChain {
    */
   public startsWith(otherKeyChain: KeyChain): boolean {
     return this.serialized.startsWith(otherKeyChain.serialized)
+  }
+
+  /**
+   * Iterates over children if value is either `Record` or `Array` and finds all related `KeyChain`s.
+   *
+   * @example
+   * const keysChains = getChildrenKeysChains({ a: "value1", b: { c: "value2" } })
+   * keysChains // => [KeysChain, KeysChain, KeysChain]
+   */
+  static getChildrenKeysChains(value: unknown, baseKeyChain?: KeyChain): KeyChain[] {
+    const baseKeys = baseKeyChain?.keys || []
+
+    if (!isRecord(value) && !(value instanceof Array)) {
+      return baseKeyChain ? [baseKeyChain] : []
+    }
+
+    return (
+      Object
+        .keys(value)
+        .map(key => new KeyChain([...baseKeys, key]))
+    )
   }
 
   static parse(keyChain: KeyChain | string): KeyChain {
