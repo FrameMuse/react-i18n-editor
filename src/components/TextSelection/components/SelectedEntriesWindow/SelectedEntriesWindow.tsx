@@ -16,7 +16,7 @@ interface SelectedEntriesWindowProps extends SelectedEntriesProps {
 function SelectedEntriesWindow(props: SelectedEntriesWindowProps) {
   const selectedEntriesModifiers: string[] = []
   if (props.selecting) selectedEntriesModifiers.push("selecting")
-  if (props.display || props.nodesSelected.length === 0) selectedEntriesModifiers.push("hidden")
+  if (!props.display || props.nodesSelected.length === 0) selectedEntriesModifiers.push("hidden")
 
   const style = {
     "--left": props.selectionBox.center.x,
