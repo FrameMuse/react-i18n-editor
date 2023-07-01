@@ -70,7 +70,7 @@ function SelectedEntries(props: SelectedEntriesProps) {
                 <div className="selected-entries-match" key={index}>
                   <div className="selected-entries-match__number">{index + 1}.</div>
                   <div className="selected-entries-match__keys">
-                    {symbol.keyChain.keys.map((key, index) => (
+                    {symbol.atKeyChain.keys.map((key, index) => (
                       <button className="selected-entries-match__key" type="button" onClick={() => props.onHighlight?.(symbol.range)} key={index}>
                         {`"${key}"`}
                       </button>

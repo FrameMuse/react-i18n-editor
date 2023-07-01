@@ -7,7 +7,6 @@ import { useMemo, useState } from "react"
 import { optionsFromKeys } from "ui/Select/Select.helpers"
 import SelectMultiple from "ui/Select/SelectMultiple"
 import Textarea from "ui/Textarea/Textarea"
-import { isRecord } from "utils/common"
 
 export interface ComparisonTableRow {
   keyChain: KeyChain
@@ -25,42 +24,23 @@ interface ComparisonTableProps {
 }
 
 function ComparisonTable(props: ComparisonTableProps) {
-  const [enabledHeadItems, setEnabledHeadItems] = useState(props.languages)
-  const enabledHeadItemIndexes = useMemo(() => {
-    return props.languages.map((item, index) => enabledHeadItems.includes(item) ? index : -1)
-  }, [props.languages])
+  const [enabledLanguages, setEnabledLanguages] = useState(props.languages)
 
   const rows: ComparisonTableRow[] = useMemo(() => {
     if (props.symbol == null) return []
 
-    const symbol = props.symbol
+    const childrenKeysChains = KeyChain.getChildrenKeysChains(props.symbol.value, props.symbol.atKeyChain)
 
-    function getKeysChains(): KeyChain[] {
-
-      if (isRecord(symbol.value)) {
-        return Object.keys(symbol.value).map(key => new KeyChain([...symbol.keyChain.keys, key]))
-      }
-
-      if (symbol.value instanceof Array) {
-        return Object.keys(symbol.value).map(key => new KeyChain([...symbol.keyChain.keys, key]))
-      }
-
-      return [symbol.keyChain]
-    }
-
-    const keysChains = getKeysChains()
-
-    const rows: ComparisonTableRow[] = keysChains.map(keyChain => ({
+    const rows: ComparisonTableRow[] = childrenKeysChains.map(keyChain => ({
       keyChain,
       values: props.languages.map(language => result(props.resources[language], keyChain.keys, ""))
     }))
-
     return rows
   }, [props.languages, props.resources, props.symbol])
 
   return (
     <div className="comparison-table">
-      <SelectMultiple width="10em" defaultValue={enabledHeadItems} onChange={setEnabledHeadItems}>
+      <SelectMultiple width="10em" defaultValue={enabledLanguages} onChange={setEnabledLanguages}>
         {optionsFromKeys(props.languages)}
       </SelectMultiple>
 
@@ -70,7 +50,7 @@ function ComparisonTable(props: ComparisonTableProps) {
         <thead>
           <tr>
             <th>Key</th>
-            {enabledHeadItems.map((item, index) => (
+            {enabledLanguages.map((item, index) => (
               <th key={index}>{item}</th>
             ))}
           </tr>
@@ -81,7 +61,7 @@ function ComparisonTable(props: ComparisonTableProps) {
               <th>
                 <button type="button" onClick={() => props.onKeyChainClick?.(keyChain)}>{keyChain.serialized}</button>
               </th>
-              {values.map((value, index) => enabledHeadItemIndexes.includes(index) && (
+              {values.map((value, index) => enabledLanguages.includes(props.languages[index]) && (
                 <td key={index}>
                   <Textarea
                     value={value}
