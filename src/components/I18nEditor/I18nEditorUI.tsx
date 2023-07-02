@@ -35,7 +35,7 @@ import { I18nEditorTabs, Resource, Resources } from "./types"
 export const I18N_EDITOR_REFRESH_EVENT = "i18n-editor-refresh"
 
 interface I18nEditorUIProps {
-  root: Element
+  root: Node
 
 
   languages: string[]

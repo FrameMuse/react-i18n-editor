@@ -7,7 +7,7 @@ import { JsonValue } from "type-fest"
 import { Resource, Resources } from "./types"
 
 export interface EditorContext {
-  root: Element
+  root: Node
 
   jsonModel: JsonModel
   selectedSymbol: JsonModelSymbol | null
