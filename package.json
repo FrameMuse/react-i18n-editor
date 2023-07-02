@@ -1,6 +1,6 @@
 {
   "name": "react-i18n-editor",
-  "version": "0.2.0-rc.16",
+  "version": "0.2.0-rc.17",
   "description": "Enables localization editor directly on a webpage.",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",

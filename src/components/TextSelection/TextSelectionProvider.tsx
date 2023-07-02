@@ -9,7 +9,7 @@ import selectionContext, { TextSelectionContext } from "./selectionContext"
 import TextSelectionNode from "./TextSelectionNode"
 
 export interface TextSelectionProviderProps {
-  root: Element
+  root: Node
 
   children: ReactNode
 }
@@ -101,9 +101,12 @@ function TextSelectionProvider(props: TextSelectionProviderProps) {
 
   // Watching for size change.
   useEffect(() => {
+    const parentElement = props.root.parentElement
+    if (parentElement == null) return
+
     const resizeObserver = new ResizeObserver(refreshTextNodes)
 
-    resizeObserver.observe(props.root)
+    resizeObserver.observe(parentElement)
     return () => {
       resizeObserver.disconnect()
     }

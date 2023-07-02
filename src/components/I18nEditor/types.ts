@@ -11,7 +11,7 @@ export interface I18nEditorOptions {
 }
 
 export interface I18nEditorMiddlewareProps {
-  root: Element
+  root: Node
 }
 export type I18nEditorMiddleware = (props: I18nEditorMiddlewareProps) => ReactElement
 
