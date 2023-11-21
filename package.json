@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "react-i18n-editor",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Enables localization editor directly on a webpage.",
   "main": "dist/index.js",
   "types": "index.d.ts",
