@@ -1,5 +1,5 @@
-import Box from "geometry/Box"
-import TextNode from "utils/TextNode"
+import Box from "@/geometry/Box"
+import TextNode from "@/utils/TextNode"
 
 export type TextSelectionNodeFlatten = (Omit<TextSelectionNode, "boxes"> & { box: Box })
 

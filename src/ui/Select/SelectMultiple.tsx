@@ -2,7 +2,8 @@ import "./Select.scss"
 
 import { useRef, useState } from "react"
 import { useClickAway } from "react-use"
-import { modifiedClass, toggleState } from "utils/react"
+
+import { modifiedClass, toggleState } from "@/utils/react"
 
 import DropDown from "../DropDown/DropDown"
 import { childrenToDropDownOptions } from "../DropDown/DropDown.helpers"

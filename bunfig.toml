@@ -1,0 +1,24 @@
+[test]
+# always enable coverage
+coverage = true
+coverageSkipTestFiles = true
+coverageIgnoreSourcemaps = true
+# to set different thresholds for lines and functions
+coverageThreshold = { line = 0.9, function = 0.8 }
+
+
+[install]
+# whether to install optionalDependencies
+optional = true
+# whether to install devDependencies
+dev = true
+# whether to install peerDependencies
+peer = true
+
+
+[debug]
+# When navigating to a blob: or src: link, open the file in your editor
+# If not, it tries $EDITOR or $VISUAL
+# If that still fails, it will try Visual Studio Code, then Sublime Text, then a few others
+# This is used by Bun.openInEditor()
+editor = "vscode"

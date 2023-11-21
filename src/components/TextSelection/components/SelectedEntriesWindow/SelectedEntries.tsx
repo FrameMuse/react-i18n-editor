@@ -1,11 +1,12 @@
 import "./SelectedEntries.scss"
 
-import TextSelectionNode from "components/TextSelection/TextSelectionNode"
-import JsonModel, { JsonModelSymbol } from "JsonModel"
 import { IRange } from "monaco-editor/esm/vs/editor/editor.api"
 import { useMemo, useState } from "react"
-import Checkbox from "ui/Checkbox/Checkbox"
-import Field from "ui/Field/Field"
+
+import TextSelectionNode from "@/components/TextSelection/TextSelectionNode"
+import JsonModel, { JsonModelSymbol } from "@/JsonModel"
+import Checkbox from "@/ui/Checkbox/Checkbox"
+import Field from "@/ui/Field/Field"
 
 
 export interface SelectedEntriesProps {

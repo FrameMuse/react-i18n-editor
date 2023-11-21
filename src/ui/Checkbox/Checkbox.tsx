@@ -2,7 +2,8 @@ import "./Checkbox.scss"
 
 import { omit } from "lodash"
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from "react"
-import { classMerge } from "utils/react"
+
+import { classMerge } from "@/utils/react"
 
 export interface CheckboxProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "onChange"> {
   onChange?(value: boolean): void

@@ -1,5 +1,4 @@
-import { InferActions } from "store/store.types"
-
+import { InferActions } from "../../store.types"
 import { EntriesState } from "./types"
 
 const initialState: EntriesState = {

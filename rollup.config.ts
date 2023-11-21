@@ -1,25 +1,50 @@
-import compiler from "@ampproject/rollup-plugin-closure-compiler"
-import typescript from "@rollup/plugin-typescript"
-// Plugins
-import dts from "rollup-plugin-dts"
-import ignoreImport from "rollup-plugin-ignore-import"
+// import compiler from "@ampproject/rollup-plugin-closure-compiler"
+// import dts from "rollup-plugin-dts"
+// import ignoreImport from "rollup-plugin-ignore-import"
+// import alias from "@rollup/plugin-alias"
+// import path from "path"
 import scss from "rollup-plugin-scss"
+import { swc } from "rollup-plugin-swc3"
 
-import pkg from "./package.json"
+// const pathAlias = alias({
+//   entries: [
+//     { find: /@(.*)/, replacement: path.resolve("$1") },
+//   ]
+// })
 
 const config = [
   {
+    preserveModules: true,
     input: "src/index.ts",
-    output: [
-      {
-        file: pkg.main,
-        format: "cjs",
-      }
-    ],
+    output: {
+      format: "esm",
+      dir: "dist"
+    },
     treeshake: true,
     plugins: [
-      typescript(),
-      compiler(),
+      // typescript(),
+      // compiler(),
+      swc({
+        jsc: {
+          loose: true,
+          externalHelpers: false,
+          parser: {
+            syntax: "typescript",
+            dynamicImport: true,
+            tsx: true,
+          },
+          transform: {
+            react: {
+              pragma: "React.createElement",
+              pragmaFrag: "React.Fragment",
+              throwIfNamespace: true,
+              development: false,
+              useBuiltins: true,
+            },
+          }
+        },
+        // minify: true
+      }),
       scss({
         outputStyle: "compressed",
         fileName: "styles/main.css",
@@ -29,25 +54,24 @@ const config = [
       })
     ]
   },
-  {
-    input: "src/index.ts",
-    output: [
-      {
-        file: pkg.types,
-        format: "cjs",
-      }
-    ],
-    treeshake: true,
-    plugins: [
-      dts(),
-      ignoreImport({
-        // Ignore all .scss and .css file imports while building the bundle
-        extensions: [".scss", ".css"],
-        // Optional: replace body for ignored files. Default value is "export default undefined;"
-        body: "export default undefined;"
-      })
-    ]
-  }
+  // {
+  //   preserveModules: true,
+  //   input: "src/index.ts",
+  //   output: {
+  //     format: "cjs",
+  //     dir: "dist",
+  //   },
+  //   treeshake: true,
+  //   plugins: [
+  //     dts(),
+  //     ignoreImport({
+  //       // Ignore all .scss and .css file imports while building the bundle
+  //       extensions: [".scss", ".css"],
+  //       // Optional: replace body for ignored files. Default value is "export default undefined;"
+  //       body: "export default undefined;"
+  //     })
+  //   ]
+  // }
 ]
 
 export default config

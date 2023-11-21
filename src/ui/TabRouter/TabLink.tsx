@@ -1,6 +1,7 @@
 import { omit } from "lodash"
 import { HTMLAttributes, useContext } from "react"
-import { modifiedClass } from "utils/react"
+
+import { modifiedClass } from "@/utils/react"
 
 import tabRouterContext from "./tabRouterContext"
 

@@ -1,4 +1,4 @@
-import { isRecord } from "utils/common"
+import { isRecord } from "@/utils/common"
 
 class KeyChain {
   readonly last: string

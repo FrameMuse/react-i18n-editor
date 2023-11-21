@@ -2,7 +2,8 @@ import "./DropDown.scss"
 
 import { useLayoutEffect, useRef, useState } from "react"
 import { useKey } from "react-use"
-import { modifiedClass } from "utils/react"
+
+import { modifiedClass } from "@/utils/react"
 
 import { childrenToDropDownOptions } from "./DropDown.helpers"
 import { DropDownOption, DropDownOptionElement } from "./DropDown.types"

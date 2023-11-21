@@ -2,8 +2,9 @@ import "./Field.scss"
 
 import { omit } from "lodash"
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, ReactNode, useId, useState } from "react"
-import { isRecord } from "utils/common"
-import { modifiedClass } from "utils/react"
+
+import { isRecord } from "@/utils/common"
+import { modifiedClass } from "@/utils/react"
 
 export type FieldConstraint = [RegExp | string, string]
 

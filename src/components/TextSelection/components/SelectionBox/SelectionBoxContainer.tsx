@@ -1,6 +1,7 @@
-import selectionContext from "components/TextSelection/selectionContext"
-import useSafeContext from "hooks/useSafeContext"
 import { useMemo } from "react"
+
+import selectionContext from "@/components/TextSelection/selectionContext"
+import useSafeContext from "@/hooks/useSafeContext"
 
 import SelectionBox from "./SelectionBox"
 

@@ -2,7 +2,8 @@ import "./Textarea.scss"
 
 import { omit } from "lodash"
 import { TextareaHTMLAttributes } from "react"
-import { classMerge } from "utils/react"
+
+import { classMerge } from "@/utils/react"
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> { }
 

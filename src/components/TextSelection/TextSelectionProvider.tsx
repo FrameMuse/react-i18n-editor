@@ -1,7 +1,8 @@
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { useEvent } from "react-use"
-import { mapSet } from "utils/common"
-import TextNode from "utils/TextNode"
+
+import { mapSet } from "@/utils/common"
+import TextNode from "@/utils/TextNode"
 
 import Box from "../../geometry/Box"
 import Point from "../../geometry/Point"

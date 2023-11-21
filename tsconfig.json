@@ -1,24 +1,24 @@
 {
+  // "extends": "./tsconfig.bun.json",
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES2017",
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext",
     ],
-    "baseUrl": "src",
-    "skipLibCheck": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
+    // "noEmit": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "strictNullChecks": true,
     "downlevelIteration": true,
     "noImplicitAny": true,
     "jsx": "react-jsx",
@@ -27,6 +27,11 @@
       "node_modules/@types",
       "@types"
     ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
   },
   "include": [
     "src",

@@ -1,12 +1,13 @@
 import "./ComparisonTable.scss"
 
-import { JsonModelSymbol } from "JsonModel"
-import KeyChain from "KeyChain"
 import { result } from "lodash"
 import { useMemo, useState } from "react"
-import { optionsFromKeys } from "ui/Select/Select.helpers"
-import SelectMultiple from "ui/Select/SelectMultiple"
-import Textarea from "ui/Textarea/Textarea"
+
+import { JsonModelSymbol } from "@/JsonModel"
+import KeyChain from "@/KeyChain"
+import { optionsFromKeys } from "@/ui/Select/Select.helpers"
+import SelectMultiple from "@/ui/Select/SelectMultiple"
+import Textarea from "@/ui/Textarea/Textarea"
 
 export interface ComparisonTableRow {
   keyChain: KeyChain

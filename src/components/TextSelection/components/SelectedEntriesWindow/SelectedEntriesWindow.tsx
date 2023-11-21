@@ -1,7 +1,7 @@
 import "./SelectedEntriesWindow.scss"
 
-import Box from "geometry/Box"
-import { modifiedClass } from "utils/react"
+import Box from "@/geometry/Box"
+import { modifiedClass } from "@/utils/react"
 
 import SelectedEntries, { SelectedEntriesProps } from "./SelectedEntries"
 

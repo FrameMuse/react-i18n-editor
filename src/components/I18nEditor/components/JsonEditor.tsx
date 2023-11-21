@@ -1,8 +1,9 @@
 import MonacoEditor, { Monaco, OnMount } from "@monaco-editor/react"
-import JsonModel from "JsonModel"
 import { startCase } from "lodash"
 import { editor, IRange } from "monaco-editor/esm/vs/editor/editor.api"
-import Enum from "utils/Enum"
+
+import JsonModel from "@/JsonModel"
+import Enum from "@/utils/Enum"
 
 export enum JsonEditorCodeActionKind {
   ScrollIntoView

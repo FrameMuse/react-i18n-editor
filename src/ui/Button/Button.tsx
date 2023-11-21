@@ -1,7 +1,8 @@
 import "./Button.scss"
 
 import { MouseEvent, MouseEventHandler, useState } from "react"
-import { classMerge, modifiedClass } from "utils/react"
+
+import { classMerge, modifiedClass } from "@/utils/react"
 
 import { ButtonBaseProps } from "./Button.types"
 

@@ -1,8 +1,8 @@
 import "./SelectionBox.scss"
 
-import { TextSelectionNodeFlatten } from "components/TextSelection/TextSelectionNode"
-import Box from "geometry/Box"
-import { modifiedClass } from "utils/react"
+import { TextSelectionNodeFlatten } from "@/components/TextSelection/TextSelectionNode"
+import Box from "@/geometry/Box"
+import { modifiedClass } from "@/utils/react"
 
 
 interface SelectionBoxProps {

@@ -1,8 +1,8 @@
-import editorContext from "components/I18nEditor/editorContext"
-import selectionContext from "components/TextSelection/selectionContext"
-import useSafeContext from "hooks/useSafeContext"
-import { useAppDispatch, useAppSelector } from "store/hooks"
-import { entriesUpdate } from "store/reducers/entries"
+import editorContext from "@/components/I18nEditor/editorContext"
+import selectionContext from "@/components/TextSelection/selectionContext"
+import useSafeContext from "@/hooks/useSafeContext"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { entriesUpdate } from "@/store/reducers/entries"
 
 import SelectedEntriesWindow from "./SelectedEntriesWindow"
 

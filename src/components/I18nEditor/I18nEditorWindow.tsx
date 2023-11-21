@@ -1,6 +1,7 @@
-import useResize from "hooks/useResize"
 import { useRef } from "react"
-import { modifiedClass } from "utils/react"
+
+import useResize from "@/hooks/useResize"
+import { modifiedClass } from "@/utils/react"
 
 import I18nEditor, { I18nEditorProps } from "./I18nEditor"
 

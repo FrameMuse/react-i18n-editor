@@ -1,6 +1,6 @@
-import editorContext from "components/I18nEditor/editorContext"
-import useSafeContext from "hooks/useSafeContext"
-import KeyChain from "KeyChain"
+import editorContext from "@/components/I18nEditor/editorContext"
+import useSafeContext from "@/hooks/useSafeContext"
+import KeyChain from "@/KeyChain"
 
 import ComparisonTable from "./ComparisonTable"
 

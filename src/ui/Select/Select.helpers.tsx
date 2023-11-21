@@ -1,5 +1,6 @@
 import { startCase } from "lodash"
-import Enum, { EnumType } from "utils/Enum"
+
+import Enum, { EnumType } from "@/utils/Enum"
 
 import { SelectOptionElement } from "./Select.types"
 

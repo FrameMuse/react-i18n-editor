@@ -16,13 +16,14 @@ copies or substantial portions of the Software.
 
 */
 
-import SelectedEntriesWindowContainer from "components/TextSelection/components/SelectedEntriesWindow/SelectedEntriesWindowContainer"
-import SelectionBoxContainer from "components/TextSelection/components/SelectionBox/SelectionBoxContainer"
 import { setWith } from "lodash"
 import { editor, IRange } from "monaco-editor/esm/vs/editor/editor.api"
 import { useMemo, useRef, useState } from "react"
 import { JsonValue } from "type-fest"
-import { useTabRouter } from "ui/TabRouter/tabRouterContext"
+
+import SelectedEntriesWindowContainer from "@/components/TextSelection/components/SelectedEntriesWindow/SelectedEntriesWindowContainer"
+import SelectionBoxContainer from "@/components/TextSelection/components/SelectionBox/SelectionBoxContainer"
+import { useTabRouter } from "@/ui/TabRouter/tabRouterContext"
 
 import useMonacoHighlightInRange from "../../hooks/useMonacoHighlightInRange"
 import JsonModel, { JsonModelSymbol } from "../../JsonModel"

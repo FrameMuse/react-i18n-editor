@@ -1,8 +1,9 @@
-import TextSelectionProvider from "components/TextSelection/TextSelectionProvider"
 import { ReactNode } from "react"
 import { Provider as StoreProvider } from "react-redux"
-import store from "store/store"
-import TabRouter from "ui/TabRouter/TabRouter"
+
+import TextSelectionProvider from "@/components/TextSelection/TextSelectionProvider"
+import store from "@/store/store"
+import TabRouter from "@/ui/TabRouter/TabRouter"
 
 import SplitChildren from "./components/SplitChildren"
 import { I18nEditorMiddleware, I18nEditorOptions, I18nEditorTabs } from "./types"

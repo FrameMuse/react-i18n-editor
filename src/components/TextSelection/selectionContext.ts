@@ -1,5 +1,6 @@
-import Box from "geometry/Box"
 import { createContext } from "react"
+
+import Box from "@/geometry/Box"
 
 import TextSelectionNode from "./TextSelectionNode"
 

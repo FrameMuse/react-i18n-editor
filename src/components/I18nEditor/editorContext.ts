@@ -1,8 +1,9 @@
-import JsonModel, { JsonModelSymbol } from "JsonModel"
-import KeyChain from "KeyChain"
 import { IRange } from "monaco-editor/esm/vs/editor/editor.api"
 import { createContext } from "react"
 import { JsonValue } from "type-fest"
+
+import JsonModel, { JsonModelSymbol } from "@/JsonModel"
+import KeyChain from "@/KeyChain"
 
 import { Resource, Resources } from "./types"
 
