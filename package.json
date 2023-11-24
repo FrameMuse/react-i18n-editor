@@ -88,8 +88,8 @@
     "url": "https://github.com/FrameMuse/react-i18n-editor/issues"
   },
   "engines": {
-    "node": "^18.0.0",
-    "vscode": "^1.22.0"
+    "node": ">=14.0.0",
+    "vscode": ">=1.22.0"
   },
   "jest": {
     "testMatch": [

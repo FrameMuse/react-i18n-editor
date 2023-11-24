@@ -3,6 +3,10 @@
 <p align="center">It's developer oriented, completely free and has built-in <a href="https://www.npmjs.com/package/i18next"><code>i18next</code></a> support</p>
 <a href="https://www.producthunt.com/posts/react-i18n-editor?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-react&#0045;i18n&#0045;editor" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=394880&theme=neutral" alt="React&#0032;i18n&#0032;Editor - react&#0044;&#0032;i18n&#0044;&#0032;i18next&#0044;&#0032;editor&#0044;&#0032;plugin&#0044;&#0032;package&#0044;&#0032;typescript | Product Hunt" style="width: 100%; height: 45px;" /></a>
 
+---
+
+[`SEE LIVE DEMO`](https://vite-i18n-editor.vercel.app/)
+
 ## Feedback
 
 Please, star the repository and create discussions if you like this library, this means a lot for me.
@@ -24,8 +28,6 @@ It's developer oriented, which means full support and discussion open.
 There is already existing plugin for it to enable editor, but it's currently deprecated, not complete free and has constrained design.
 
 ## Usage
-
-Live demo
 
 ### Install
 
