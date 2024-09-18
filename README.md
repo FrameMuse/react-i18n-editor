@@ -13,6 +13,8 @@ Please, star the repository and create discussions if you like this library, thi
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D8IZ8TU)
 
+[Discord Server - Ping me!](https://discord.gg/RYeN5XJ8)
+
 ## Introduction
 
 It allows you to create translation from scratch, editing existing localization and saving this to backend while being on the webpage the whole time.
